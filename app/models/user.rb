@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_many :recipes
+  validates :email, :display_name, presence: true, uniqueness: true
+
+  has_many :recipes, inverse_of: :user
 end

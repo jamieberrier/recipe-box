@@ -1,5 +1,7 @@
 class Recipe < ActiveRecord::Base
   belongs_to :user
-  has_many :recipe_ingredients
+  validates :user, presence: true
+
+  has_many :recipe_ingredients, inverse_of: :recipe
   has_many :ingredients, through: :recipe_ingredients
 end
