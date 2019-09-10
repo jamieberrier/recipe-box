@@ -24,7 +24,8 @@ Specs:
       - Recipe belongs_to :user
       - RecipeIngredient belongs_to :ingredient
       - RecipeIngredient belongs_to :recipe
-- [ ] Include user accounts with unique login attribute (username or email)
+- [x] Include user accounts with unique login attribute (username or email)
+      - In User  model -- validates :email, :display_name, presence: true, uniqueness: true
 - [ ] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
 - [ ] Ensure that users can't modify content created by other users
 - [ ] Include user input validations
