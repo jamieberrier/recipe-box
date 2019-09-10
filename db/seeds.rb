@@ -1,9 +1,8 @@
-=begin
+# Will clear out database before seeding
 User.destroy_all
 Recipe.destroy_all
 Ingredient.destroy_all
 RecipeIngredient.destroy_all
-=end
 
 # USERS
 jamie = User.create(email: "jamie@jamie.com", password: "test", display_name: "jme")
@@ -13,7 +12,7 @@ sue = User.create(email: "sue@sue.com", password: "test", display_name: "sue")
 fred = User.create(email: "fred@fred.com", password: "test", display_name: "fred")
 
 # RECIPES
-carrot_cake = Recipe.create(user_id: jamie.id, name: "Carrot Cake", description: "yummy cake", total_time: "2 hours", cook_time: "45 minutes", image_url: "https://i.ytimg.com/vi/EJ5AlErxLWY/maxresdefault.jpg", instructions: "MAKE BATTER
+carrot_cake = Recipe.create(user_id: jamie.id, name: "Carrot Cake", course: "dessert", description: "yummy cake", total_time: "2 hours", cook_time: "45 minutes", image_url: "https://i.ytimg.com/vi/EJ5AlErxLWY/maxresdefault.jpg", instructions: "MAKE BATTER
 Heat the oven to 350 degrees Fahrenheit (176C). Grease two 9-inch round cake pans and line the bottom with parchment paper then grease the top of the paper. Or, grease and flour the bottom and sides of both pans.
 
 In a medium bowl, whisk flour, baking soda, salt, and the cinnamon until well blended.
@@ -34,20 +33,20 @@ Beat in the powdered sugar, a 1/4 cup at a time until fluffy. Pour in cream and 
 
 When the cake layers are completely cool, frost the top of one cake layer, place the other cake layer on top. Decoratively swirl the top of the cake with remaining frosting, leaving the sides unfrosted. Scatter nuts on top.")
 
-baked_chicken = Recipe.create(user_id: bob.id, name: "Baked Chicken", description: "The best baked chicken ever!", total_time: "1 hour", cook_time: "30 minutes", image_url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-baked-chicken-horizontal-1541702257.jpg?crop=1xw:1xh;center,top&resize=768:*", instructions: "1. Preheat oven to 375º. In a small bowl, combine brown sugar, garlic powder, paprika, salt, and pepper. Drizzle oil all over chicken and generously coat with seasoning mixture, shaking off excess. Scatter lemon slices in baking dish then place chicken on top.
+baked_chicken = Recipe.create(user_id: bob.id, name: "Baked Chicken", course: "entree", description: "The best baked chicken ever!", total_time: "1 hour", cook_time: "30 minutes", image_url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-baked-chicken-horizontal-1541702257.jpg?crop=1xw:1xh;center,top&resize=768:*", instructions: "1. Preheat oven to 375º. In a small bowl, combine brown sugar, garlic powder, paprika, salt, and pepper. Drizzle oil all over chicken and generously coat with seasoning mixture, shaking off excess. Scatter lemon slices in baking dish then place chicken on top.
 2. Bake until chicken is cooked through, or reads an internal temperature of 165º, about 25 minutes.
 3. Cover chicken loosely with foil and let rest for at least 5 minutes. Garnish with parsley, if using.")
 
-pork_chops = Recipe.create(user_id: sam.id, name: "Juicy Pork Choops", total_time: "30 minutes", cook_time: "20 minutes", image_url: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/11/1520972863-pork-chop-vertical.jpg?crop=1.0xw:1xh;center,top&resize=768:*", instructions: "1. Preheat oven to 375°. Season pork chops with salt and pepper.
+pork_chops = Recipe.create(user_id: sam.id, name: "Pork Choops", course: "entree", description: "Juicy Pork Chops", total_time: "30 minutes", cook_time: "20 minutes", image_url: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/11/1520972863-pork-chop-vertical.jpg?crop=1.0xw:1xh;center,top&resize=768:*", instructions: "1. Preheat oven to 375°. Season pork chops with salt and pepper.
 2. In a small bowl mix together butter, rosemary, and garlic. Set aside.
 3. In an oven safe skillet over medium-high heat, heat olive oil then add pork chops. Sear until golden, 4 minutes, flip and cook 4 minutes more. Brush pork chops generously with garlic butter.
 4. Place skillet in oven and cook until cooked through, 10-12 minutes. Serve with more garlic butter.")
 
-roasted_carrots = Recipe.create(user_id: sue.id, name: "Roasted Carrots", description: "Oven Roasted Carrots", total_time: "35 minutes", cook_time: "30 minutes", image_url: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/2048x1365/gallery-1519653814-delish-roasted-carrots-1.jpg?resize=980:*", instructions: "1. Preheat oven to 400º. On a large baking sheet, toss carrots with olive oil and season generously with salt and pepper.
+roasted_carrots = Recipe.create(user_id: sue.id, name: "Roasted Carrots", course: "side dish", description: "Oven Roasted Carrots", total_time: "35 minutes", cook_time: "30 minutes", image_url: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/2048x1365/gallery-1519653814-delish-roasted-carrots-1.jpg?resize=980:*", instructions: "1. Preheat oven to 400º. On a large baking sheet, toss carrots with olive oil and season generously with salt and pepper.
 2. Roast until tender and lightly caramelized, 30 minutes.
 3. Garnish with parsley, if desired, before serving.")
 
-greek_chicken = Recipe.create(user_id: fred.id, name: "Greek Chicken", description: "A light summer dish", total_time: "8 hours", cook_time: "30 minutes", image_url: "https://www.recipetineats.com/wp-content/uploads/2018/08/Greek-Yoghurt-Marinated-Chicken_8.jpg", instructions: "1. Mix Marinade ingredients in a large bowl.
+greek_chicken = Recipe.create(user_id: fred.id, name: "Greek Chicken", course: "entree", description: "A light summer dish", total_time: "8 hours", cook_time: "30 minutes", image_url: "https://www.recipetineats.com/wp-content/uploads/2018/08/Greek-Yoghurt-Marinated-Chicken_8.jpg", instructions: "1. Mix Marinade ingredients in a large bowl.
 2. Add chicken and coat well. Marinade for 24 hours (3 hours minimum).
 3. Preheat oven to 180C.350F.
 4. Line a tray with foil (trust me), place rack on tray (optional).
