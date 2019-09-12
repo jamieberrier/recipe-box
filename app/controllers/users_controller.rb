@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   # GET: /users/5
   # use slug instead of id
   get "/users/:id" do
+    @user = User.find(params[:id])
     erb :"/users/show"
   end
 
