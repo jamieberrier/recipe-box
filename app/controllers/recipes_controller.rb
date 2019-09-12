@@ -2,12 +2,12 @@ class RecipesController < ApplicationController
 
   # GET: /recipes
   get "/recipes" do
-    erb :"/recipes/index.html"
+    erb :"/recipes/index"
   end
 
   # GET: /recipes/new
   get "/recipes/new" do
-    erb :"/recipes/new.html"
+    erb :"/recipes/new"
   end
 
   # POST: /recipes
@@ -17,12 +17,12 @@ class RecipesController < ApplicationController
 
   # GET: /recipes/5
   get "/recipes/:id" do
-    erb :"/recipes/show.html"
+    erb :"/recipes/show"
   end
 
   # GET: /recipes/5/edit
   get "/recipes/:id/edit" do
-    erb :"/recipes/edit.html"
+    erb :"/recipes/edit"
   end
 
   # PATCH: /recipes/5
