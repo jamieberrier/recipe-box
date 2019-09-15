@@ -2,6 +2,7 @@ class RecipesController < ApplicationController
 
   # GET: /recipes
   get "/recipes" do
+    @recipes = Recipe.all
     erb :"/recipes/index"
   end
 

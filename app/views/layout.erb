@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+    <% if logged_in? %>
+      <div class="topnav">
+        <ul>
+          <li><a href="/recipes">All Recipes</a></li>
+          <li><a href="/users/<%= current_user.id %>">Profile Page</a></li>
+          <li><a href="/logout">Log Out</a></li>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="wrapper">
 
       <% flash.keys.each do |type| %>
