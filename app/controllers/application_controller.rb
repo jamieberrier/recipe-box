@@ -18,11 +18,12 @@ class ApplicationController < Sinatra::Base
   helpers do
     def login
       user = User.find_by(email: params[:user][:email])
-    
+
       if user && user.authenticate(params[:user][:password])
 	       session[:user_id] = user.id
          redirect "/users/#{user.id}"
       else
+        flash[:alert] = "Incorrect email or password"
         redirect "/login"
       end
     end
@@ -42,6 +43,7 @@ class ApplicationController < Sinatra::Base
 
     def logout!
       session.clear
+      flash[:notice] = "You are logged out!"
       redirect "/login"
     end
   end
