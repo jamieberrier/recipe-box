@@ -9,27 +9,27 @@ The application we build in the project build is an "Artist Portfolio App". **Us
 ### PART 1 — Project Setup: Corneal, MVC, ActiveRecord
 
 **BEFORE YOU CODE**
-- [ ] 1. Check project requirements in `spec.md`
-- [ ] 2. Ideate! What do you want to build?
+- [x] 1. Check project requirements in `spec.md`
+- [x] 2. Ideate! What do you want to build?
   - choose a domain you're familiar with!
   - choose a domain you care about
-- [ ] 3. Wireframing & User Stories
+- [x] 3. Wireframing & User Stories
   - Write down your models, their attributes, and their associations
   - "As a user, I can ....."
   - "A user should be able to ....."
   - What does your app _do_?
-- [ ] 4. Design your MVP = 'Minimum Viable Product' vs. what are my 'stretch goals'
+- [x] 4. Design your MVP = 'Minimum Viable Product' vs. what are my 'stretch goals'
   - Stretch goals - bonus features you want but don't need
 
 **NOW WE CODE (BUT JUST OUR MODELS — NO CONTROLLERS OR VIEWS)**
 
-- [ ] 5. Generate new project using [corneal gem](https://github.com/thebrianemory/corneal)
-- [ ] 6. Create github repo
-- [ ] 7. Build your models
+- [x] 5. Generate new project using [corneal gem](https://github.com/thebrianemory/corneal)
+- [x] 6. Create github repo
+- [x] 7. Build your models
   - Migrations
   - Model classes
   - Associations
-- [ ] 8. Test your models and associations in the console
+- [x] 8. Test your models and associations in the console
   - Create some seed data
   - Adjust migrations as needed
 
@@ -43,35 +43,35 @@ The application we build in the project build is an "Artist Portfolio App". **Us
 
 **START WITH LOGIN**
 
-- [ ] 9. Create your `UsersController`
+- [x] 9. Create your `UsersController`
   - Mount new controller in `config.ru` with `use UsersController` (Why do we add this?)
 
-- [ ] 10. Enable `sessions` in `ApplicationController`
+- [x] 10. Enable `sessions` in `ApplicationController`
     - Enable sessions
     - Create session secret
 
-- [ ] 11. Build routes and views for login
+- [x] 11. Build routes and views for login
   - Build your `get` login route + "login" view
   - Build your `post` login route
       - **Tip**: Here is where we authenticate the user and leverage the session hash to log them in!
   - Build your `get users/:id` route + "show" view
 
-- [ ] 12. Create your `ApplicationController` helper methods
+- [x] 12. Create your `ApplicationController` helper methods
   - **Ask**: Why do we add this?
   - `#logged_in?`: checks if the user is logged in
   - `#current_user`: keeps track of the user currently logged in
 
 **MOVE ON TO SIGN UP**
-- [ ] 13. Build routes and views for signup
+- [x] 13. Build routes and views for signup
   - Build your `get` signup route + "signup" view
   - Build your `post` signup route
 
 **WRAP UP WITH LOG OUT**
-- [ ] 14. Build your `get` logout route
+- [x] 14. Build your `get` logout route
 
 ### PART 3 — CRUD: Create, Read, Update, Delete
 
-- [ ] 15. Create your `PostsController`
+- [x] 15. Create your `PostsController`
   - Mount new controller in `config.ru` with `use PostsController`
   - **Ask**: Why do we add this? ^
 
