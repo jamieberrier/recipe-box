@@ -1,2 +1,17 @@
 <h1><%= @recipe.name %></h1>
 <%= @recipe.description%>
+<br>
+<img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %> photo" height="200" width="200"><br>
+<strong><%= @recipe.created_at %></strong>
+<p><%= @recipe.description %></p>
+<p>By: <%= @recipe.user.display_name %></p>
+<br><br>
+
+<% if authorized_to_edit?(@recipe) %>
+<a href="/recipes/<%= @recipe.id %>/edit">Edit Recipe</a>
+
+  <form class="" action="/recipes/<%= @recipe.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" name="" value="Delete This Recipe">
+  </form>
+ <% end %>

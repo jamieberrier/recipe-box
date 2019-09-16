@@ -2,6 +2,9 @@
 <h2>All Recipes</h2>
 
 <% @recipes.each do |recipe| %>
-  <li><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></li>
-  <br>
+  <h4><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h4>
+  <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="300" width="400"><br>
+  <strong><%= recipe.created_at %></strong>
+  <p>By: <%= recipe.user.display_name %></p>
+  <br><br>
 <% end %>
