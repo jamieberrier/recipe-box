@@ -2,25 +2,38 @@ class UsersController < ApplicationController
 
   # GET: /users/new
   get "/signup" do
-    if !logged_in?
-      erb :"/users/new"
-    else
+    if logged_in?
       redirect "/users/#{@user.id}"
+    else
+      erb :"/users/new"
     end
   end
 
   # POST: /users
-  post "/signup" do
-    @user = User.create(params[:user])
-    session[:user_id] = @user.id
-    redirect "/users/#{@user.id}"
+  post "/users" do
+    @user = User.find_by(email: params[:user][:email])
+    if @user
+      flash[:notice] = "User already exists, please log in"
+      redirect "/login"
+    else
+      @user = User.new(params[:user])
+      if @user.save
+        session[:user_id] = @user.id
+        flash[:notice] = "Successfully signed up!"
+        redirect "/users/#{@user.id}"
+      else
+        flash[:error] = "Signup failure: #{@user.errors.full_messages.to_sentence}"
+        redirect "/signup"
+      end
+    end
+
   end
 
   get "/login" do
-    if !logged_in?
-      erb :"/users/login"
-    else
+    if logged_in?
       redirect "/users/#{current_user.id}"
+    else
+      erb :"/users/login"
     end
   end
 
@@ -33,7 +46,7 @@ class UsersController < ApplicationController
   end
 
   # GET: /users/5
-  # use slug instead of id
+  #! use slug instead of id
   get "/users/:id" do
     @user = User.find(params[:id])
     erb :"/users/show"

@@ -11,21 +11,22 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
+  #! edit welcome page with sign up/log in
   get "/" do
     erb :welcome
   end
 
   helpers do
     def login
-      user = User.find_by(email: params[:user][:email])
+      @user = User.find_by(email: params[:user][:email])
 
-      if user && user.authenticate(params[:user][:password])
-	       session[:user_id] = user.id
-         redirect "/users/#{user.id}"
-      elsif !user
-        flash[:alert] = "Email address not found"
+      if @user && @user.authenticate(params[:user][:password])
+	       session[:user_id] = @user.id
+         redirect "/users/#{@user.id}"
+      elsif !@user
+        flash[:alert] = "Incorrect email address"
         redirect "/login"
-      else
+      else @user && !@user.authenticate(params[:user][:password])
         flash[:alert] = "Incorrect password"
         redirect "/login"
       end
@@ -44,6 +45,7 @@ class ApplicationController < Sinatra::Base
       current_user == recipe.user
     end
 
+    #? session.destroy
     def logout!
       session.clear
       flash[:notice] = "You are logged out!"
