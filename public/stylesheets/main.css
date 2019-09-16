@@ -114,6 +114,16 @@
   li a:hover {
     background-color: #111;
   }
+
+  /* add style to flash */
+  .flash{
+    width: 600px;
+    padding: 5px;
+    font-weight: bold;
+    margin: 20px;
+    background:#ddd;
+    color:#666;border:1px solid #ccc;
+  }
 }
 
 @media screen and (max-width: 600px) {

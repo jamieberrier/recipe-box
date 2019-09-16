@@ -22,8 +22,11 @@ class ApplicationController < Sinatra::Base
       if user && user.authenticate(params[:user][:password])
 	       session[:user_id] = user.id
          redirect "/users/#{user.id}"
+      elsif !user
+        flash[:alert] = "Email address not found"
+        redirect "/login"
       else
-        flash[:alert] = "Incorrect email or password"
+        flash[:alert] = "Incorrect password"
         redirect "/login"
       end
     end
