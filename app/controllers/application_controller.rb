@@ -11,9 +11,13 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-  #! edit welcome page with sign up/log in
+  # welcome page
   get "/" do
-    erb :welcome
+    if logged_in?
+      redirect "/users/#{current_user.id}"
+    else
+      erb :welcome
+    end
   end
 
   helpers do
