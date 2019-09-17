@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
 
   # POST: /recipes
   post "/recipes" do
+    # pick up here
     redirect "/recipes"
   end
 

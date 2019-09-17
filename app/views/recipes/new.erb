@@ -1,1 +1,57 @@
 <h3>Create a New Recipe</h3>
+<form action="/recipes" method="POST">
+  <label for="name">Recipe Name:</label>
+  <input id="name" type="text" name="recipe[name]">
+
+  <!-- make drop down menu -->
+  <label for="course">Recipe Course:</label>
+  <input id="course" type="text" name="recipe[course]">
+  <br>
+  <label for="description">Recipe Description:</label><br>
+  <textarea id="description" name="recipe[description]" rows="5" cols="60"></textarea>
+  <br>
+  <label for="image_url">Recipe Image URL:</label>
+  <input id="image_url" type="text" name="recipe[image_url]">
+  <br>
+  <label for="total_time">Total Time:</label>
+  <input id="total_time" type="text" name="recipe[total_time]">
+
+  <label for="cook_time">Cook Time:</label>
+  <input id="cook_time" type="text" name="recipe[cook_time]">
+  <br><br>
+
+  <!-- Ingredients -->
+  <!-- Button to add another ingredient? -->
+  <label>Ingredients:</label><br>
+  <label for="ingredient1_name">Name:</label>
+  <input type="text" name="recipe[ingredients][][name]">
+  <label for="ingredient1_amount">Amount:</label>
+  <input type="text" name="recipe[ingredients][][amount]">
+  <br>
+  <label for="ingredient2_name">Name:</label>
+  <input type="text" name="recipe[ingredients][][name]">
+  <label for="ingredient2_amount">Amount:</label>
+  <input type="text" name="recipe[ingredients][][amount]">
+  <br>
+  <label for="ingredient3_name">Name:</label>
+  <input type="text" name="recipe[ingredients][][name]">
+  <label for="ingredient3_amount">Amount:</label>
+  <input type="text" name="recipe[ingredients][][amount]">
+  <br>
+  <label for="ingredient4_name">Name:</label>
+  <input type="text" name="recipe[ingredients][][name]">
+  <label for="ingredient4_amount">Amount:</label>
+  <input type="text" name="recipe[ingredients][][amount]">
+  <br>
+  <label for="ingredient5_name">Name:</label>
+  <input type="text" name="recipe[ingredients][][name]">
+  <label for="ingredient5_amount">Amount:</label>
+  <input type="text" name="recipe[ingredients][][amount]">
+  <br>
+
+  <br><br>
+  <label for="instructions">Instructions:</label><br>
+  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="60"></textarea>
+  <br><br>
+  <input type="submit" value="Create Recipe">
+</form>
