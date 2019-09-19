@@ -79,7 +79,7 @@ The application we build in the project build is an "Artist Portfolio App". **Us
   - Create `get` posts route
   - Create a view for displaying all posts
 
-- [ ] 17. Implement CREATE functionality
+- [x] 17. Implement CREATE functionality
   - Create `get` posts route and view to render form
   - Create `post` route to create new post
 
@@ -89,12 +89,12 @@ The application we build in the project build is an "Artist Portfolio App". **Us
   - Create `get` route and view to render form
   - Create `patch` route to update an existing post
 
-- [ ] 19. Implement DELETE functionality
+- [x] 19. Implement DELETE functionality
   - Create `delete` form in relevant view
   - Create `delete` route to delete post
 
 ### PART 4 — Tighten Up!: Validations and Authorization
-- [ ] 20. Implement `sinatra-flash` gem to display validation failures and improve user experience (UX)
+- [x] 20. Implement `sinatra-flash` gem to display validation failures and improve user experience (UX)
   - Review the [docs](https://github.com/SFEley/sinatra-flash)
   - **Tip**: a `flash[:message]` has the lifecyle of one `GET` request and will not show up when rendering an `erb` file.
 - [ ] 21. Include ActiveRecord validations in your `User` and `Post` model that checks for user inputs
