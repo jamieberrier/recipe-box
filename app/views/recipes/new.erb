@@ -23,31 +23,17 @@
   <!-- Ingredients -->
   <!-- Button to add another ingredient? -->
   <label>Ingredients:</label><br>
-  <label for="ingredient1_name">Name:</label>
-  <input type="text" name="recipe[ingredients][][name]">
-  <label for="ingredient1_amount">Amount:</label>
-  <input type="text" name="recipe[ingredients][][amount]">
-  <br>
-  <label for="ingredient2_name">Name:</label>
-  <input type="text" name="recipe[ingredients][][name]">
-  <label for="ingredient2_amount">Amount:</label>
-  <input type="text" name="recipe[ingredients][][amount]">
-  <br>
-  <label for="ingredient3_name">Name:</label>
-  <input type="text" name="recipe[ingredients][][name]">
-  <label for="ingredient3_amount">Amount:</label>
-  <input type="text" name="recipe[ingredients][][amount]">
-  <br>
-  <label for="ingredient4_name">Name:</label>
-  <input type="text" name="recipe[ingredients][][name]">
-  <label for="ingredient4_amount">Amount:</label>
-  <input type="text" name="recipe[ingredients][][amount]">
-  <br>
-  <label for="ingredient5_name">Name:</label>
-  <input type="text" name="recipe[ingredients][][name]">
-  <label for="ingredient5_amount">Amount:</label>
-  <input type="text" name="recipe[ingredients][][amount]">
-  <br>
+  <% 10.times do %>
+    <fieldset>
+      <label for="ingredient_name">Name:</label>
+      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]">
+      <label for="ingredient_amount">Amount:</label>
+      <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]">
+      <label for="food_group">Food Group:</label>
+      <input id="food_group" type="text" name="recipe[ingredients][][food_group]">
+      <br>
+    </fieldset>
+  <% end %>
 
   <br><br>
   <label for="instructions">Instructions:</label><br>
