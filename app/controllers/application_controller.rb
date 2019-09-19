@@ -26,6 +26,7 @@ class ApplicationController < Sinatra::Base
 
       if @user && @user.authenticate(params[:user][:password])
 	       session[:user_id] = @user.id
+         flash[:message] = "Welcome #{@user.display_name}!"
          redirect "/users/#{@user.id}"
       elsif !@user
         flash[:alert] = "Incorrect email address"
@@ -49,7 +50,6 @@ class ApplicationController < Sinatra::Base
       current_user == recipe.user
     end
 
-    #? session.destroy
     def logout!
       session.clear
       flash[:notice] = "You are logged out!"
