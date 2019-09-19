@@ -13,8 +13,20 @@ class RecipesController < ApplicationController
 
   # POST: /recipes
   post "/recipes" do
-    # pick up here
-    redirect "/recipes"
+    @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
+
+    if @recipe.save
+      params[:recipe][:ingredients].each do |ingredient|
+        if !ingredient[:name].blank?
+          i = Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
+          RecipeIngredient.create(recipe_id: @recipe.id, ingredient_id: i.id, ingredient_amount: ingredient[:ingredient_amount])
+        end
+      end
+
+      redirect "/recipes/#{@recipe.id}"
+    else
+      redirect "/recipes/new"
+    end
   end
 
   # GET: /recipes/5
@@ -25,7 +37,14 @@ class RecipesController < ApplicationController
 
   # GET: /recipes/5/edit
   get "/recipes/:id/edit" do
-    erb :"/recipes/edit"
+    @recipe = Recipe.find(params[:id])
+
+    if authorized_to_edit?(@recipe)
+      erb :"/recipes/edit"
+    else
+      flash[:error] = "Not yours to edit!"
+      redirect "/recipes"
+    end
   end
 
   # PATCH: /recipes/5
@@ -35,6 +54,13 @@ class RecipesController < ApplicationController
 
   # DELETE: /recipes/5/delete
   delete "/recipes/:id/delete" do
-    redirect "/recipes"
+    @recipe = Recipe.find(params[:id])
+    if logged_in? && current_user.id == @recipe.user_id
+      @recipe.destroy
+      flash[:message] = "Recipe deleted."
+      redirect "/users/#{@recipe.user_id}"
+    else
+      redirect "/recipes"
+    end
   end
 end
