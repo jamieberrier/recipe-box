@@ -1,1 +1,48 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h3>Edit Recipe: <%= @recipe.name %></h3>
+<form action="/recipes/<%= @recipe.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <label for="name">Recipe Name:</label>
+  <input id="name" type="text" name="recipe[name]" value="<%= @recipe.name %>">
+
+  <!-- make drop down menu -->
+  <label for="course">Recipe Course:</label>
+  <input id="course" type="text" name="recipe[course]" value="<%= @recipe.course %>">
+  <br>
+  <label for="description">Recipe Description:</label><br>
+  <textarea id="description" name="recipe[description]" rows="5" cols="60"><%= @recipe.description %></textarea>
+  <br>
+  <label for="image_url">Recipe Image URL:</label>
+  <input id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>">
+  <br>
+  <label for="total_time">Total Time:</label>
+  <input id="total_time" type="text" name="recipe[total_time]" value="<%= @recipe.total_time %>">
+
+  <label for="cook_time">Cook Time:</label>
+  <input id="cook_time" type="text" name="recipe[cook_time]" value="<%= @recipe.cook_time %>">
+  <br><br>
+
+  <label>Ingredients:</label><br>
+  <% @recipe.recipe_ingredients.each do |ingredient| %>
+    <% i = Ingredient.find(ingredient.ingredient_id) %>
+    <fieldset>
+      <label for="ingredient_name">Name:</label>
+      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" value="<%= i.name %>">
+      <label for="ingredient_amount">Amount:</label>
+      <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
+      <label for="food_group">Food Group:</label>
+      <input id="food_group" type="text" name="recipe[ingredients][][food_group]" value="<%= i.food_group %>">
+      <br>
+    </fieldset>
+  <% end %>
+
+  <br><br>
+  <label for="instructions">Instructions:</label><br>
+  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="60"><%= @recipe.instructions %></textarea>
+  <br><br>
+  <input type="submit" value="Edit Recipe">
+</form>
+<br>
+<form>
+  <button type="submit" formaction="/recipes/<%= @recipe.id %>"> Cancel </button>
+</form>
