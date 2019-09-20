@@ -13,16 +13,15 @@ class RecipesController < ApplicationController
 
   # POST: /recipes
   post "/recipes" do
-    @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
-
-    if @recipe.save
+    if @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
+      count = 0
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
-          i = Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
-          RecipeIngredient.create(recipe_id: @recipe.id, ingredient_id: i.id, ingredient_amount: ingredient[:ingredient_amount])
+          @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
+          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          count += 1
         end
       end
-
       redirect "/recipes/#{@recipe.id}"
     else
       redirect "/recipes/new"
@@ -32,6 +31,7 @@ class RecipesController < ApplicationController
   # GET: /recipes/5
   get "/recipes/:id" do
     @recipe = Recipe.find(params[:id])
+    #binding.pry
     erb :"/recipes/show"
   end
 
