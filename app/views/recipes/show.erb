@@ -1,10 +1,11 @@
 <h1><%= @recipe.name %></h1>
-<%= @recipe.description %>
+<p>Description: <%= @recipe.description %>
 <br>
-<img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %> photo" height="200" width="200"><br>
-<strong><%= @recipe.created_at %></strong>
-<p>By: <%= @recipe.user.display_name %></p>
-<br><br>
+<% if !@recipe.image_url.blank? %>
+  <img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %> photo" height="200" width="200"><br>
+<% end %>
+By: <%= @recipe.user.display_name %></p>
+
 <h3>Ingredients</h3>
 <% @recipe.recipe_ingredients.each do |ingredient| %>
   <% i = Ingredient.find(ingredient.ingredient_id) %>
