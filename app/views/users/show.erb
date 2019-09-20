@@ -2,7 +2,10 @@
 
 <% @user.recipes.each do |recipe| %>
   <a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a><br>
-  <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="100" width="100"><br>
-  <%= recipe.description %><br>
+  <% if !recipe.image_url.blank? %>
+    <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="100" width="100"><br>
+  <% end %>
+  Description: <%= recipe.description %><br>
   <strong><%= recipe.created_at %></strong>
+  <br><br>
 <% end %>
