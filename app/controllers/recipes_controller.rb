@@ -31,7 +31,6 @@ class RecipesController < ApplicationController
   # GET: /recipes/5
   get "/recipes/:id" do
     @recipe = Recipe.find(params[:id])
-    #binding.pry
     erb :"/recipes/show"
   end
 
@@ -49,7 +48,24 @@ class RecipesController < ApplicationController
 
   # PATCH: /recipes/5
   patch "/recipes/:id" do
-    redirect "/recipes/:id"
+    @recipe = Recipe.find(params[:id])
+
+    if @recipe.update(name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
+      count = 0
+      params[:recipe][:ingredients].each do |ingredient|
+        if !ingredient[:name].blank?
+          @recipe.ingredients[count].update(name: ingredient[:name], food_group: ingredient[:food_group])
+          #@recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
+          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          count += 1
+        end
+      end
+      flash[:message] = "Recipe successfully updated!"
+      redirect "/recipes/#{@recipe.id}"
+    else
+      flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
+      redirect "/recipes/#{@recipe.id}/edit"
+    end
   end
 
   # DELETE: /recipes/5/delete
