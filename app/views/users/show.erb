@@ -6,6 +6,7 @@
     <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="100" width="100"><br>
   <% end %>
   Description: <%= recipe.description %><br>
-  <strong><%= recipe.created_at %></strong>
+  <% #binding.pry %>
+  <strong><%= recipe.created_at.strftime("Created on %m/%d/%Y at %I:%M %p") %></strong>
   <br><br>
 <% end %>
