@@ -70,27 +70,11 @@ class RecipesController < ApplicationController
 
   # DELETE: /recipes/5/delete
   delete "/recipes/:id/delete" do
-    @recipe = Recipe.find(params[:id])
-    if logged_in? && current_user.id == @recipe.user_id
-      @recipe.destroy
-      flash[:message] = "Recipe deleted."
-      redirect "/users/#{@recipe.user_id}"
-    else
-      flash[:error] = "Not yours to delete!"
-      redirect "/recipes"
-    end
+    delete_recipe!
   end
 
   # if a user tries to delete another user's recipe via URL
   get "/recipes/:id/delete" do
-    @recipe = Recipe.find(params[:id])
-    if logged_in? && current_user.id == @recipe.user_id
-      @recipe.destroy
-      flash[:message] = "Recipe deleted."
-      redirect "/users/#{@recipe.user_id}"
-    else
-      flash[:error] = "Not yours to delete!"
-      redirect "/recipes"
-    end
+    delete_recipe!
   end
 end

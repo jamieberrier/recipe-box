@@ -55,5 +55,17 @@ class ApplicationController < Sinatra::Base
       flash[:notice] = "You are logged out!"
       redirect "/login"
     end
-  end
+
+    def delete_recipe!
+      @recipe = Recipe.find(params[:id])
+      if logged_in? && current_user.id == @recipe.user_id
+        @recipe.destroy
+        flash[:message] = "Recipe deleted."
+        redirect "/users/#{@recipe.user_id}"
+      else
+        flash[:error] = "Not yours to delete!"
+        redirect "/recipes"
+      end
+    end
+  end # end of helpers
 end
