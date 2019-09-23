@@ -2,11 +2,13 @@
 <h2>All Recipes in the Box!</h2>
 
 <% @recipes.each do |recipe| %>
-  <h4><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h4>
-  <% if !recipe.image_url.blank? %>
-    <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="300" width="400"><br>
-  <% end %>
-  <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <%= recipe.user.display_name %></strong>
-  <p>Course: <%= recipe.course %></p>
-  <br><br>
+  <div class="recipe">
+    <h4><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h4>
+    <% if !recipe.image_url.blank? %>
+      <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="300" width="400"><br>
+    <% end %>
+    <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <%= recipe.user.display_name %></strong>
+    <p>Course: <%= recipe.course %></p>
+  </div>
+  <br>
 <% end %>

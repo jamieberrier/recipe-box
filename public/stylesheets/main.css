@@ -116,13 +116,17 @@
   }
 
   /* add style to flash */
-  .flash{
+  .flash {
     width: 600px;
     padding: 5px;
     font-weight: bold;
     margin: 20px;
     background:#ddd;
     color:#666;border:1px solid #ccc;
+  }
+
+  .recipe {
+    border-bottom: 2px dashed #ccc;
   }
 }
 
