@@ -60,8 +60,19 @@ class RecipesController < ApplicationController
           @recipe.ingredients[count].update(name: ingredient[:name], food_group: ingredient[:food_group])
           @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
           count += 1
+        elsif ingredient[:name].blank?
+          @recipe.recipe_ingredients[count].delete
         end
       end
+      # New Ingredients added
+      params[:recipe][:new_ingredients].each do |ingredient|
+        if !ingredient[:name].blank?
+          @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
+          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          count += 1
+        end
+      end
+
       flash[:message] = "Recipe successfully updated!"
       redirect "/recipes/#{@recipe.id}"
     else
