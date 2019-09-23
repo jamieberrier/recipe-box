@@ -6,7 +6,7 @@
   <% if !recipe.image_url.blank? %>
     <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="300" width="400"><br>
   <% end %>
-  <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %></strong>
-  <p>By: <%= recipe.user.display_name %></p>
+  <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <%= recipe.user.display_name %></strong>
+  <p>Course: <%= recipe.course %></p>
   <br><br>
 <% end %>
