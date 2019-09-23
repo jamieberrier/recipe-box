@@ -2,10 +2,17 @@
 <form action="/recipes" method="POST">
   <label for="name">Recipe Name:</label>
   <input id="name" type="text" name="recipe[name]">
-
-  <!-- make drop down menu -->
-  <label for="course">Recipe Course:</label>
-  <input id="course" type="text" name="recipe[course]">
+  <br>
+  <!-- make drop down menu? -->
+  <label>Recipe Course:</label>
+  <input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input>
+  <input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input>
+  <input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input>
+  <input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input>
+  <input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input>
+  <input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input>
+  <input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input>
+  <input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input>
   <br>
   <label for="description">Recipe Description:</label><br>
   <textarea id="description" name="recipe[description]" rows="5" cols="60"></textarea>

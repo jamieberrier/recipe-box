@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
 
   # POST: /recipes
   post "/recipes" do
-    if @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
+    if @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
       count = 0
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
