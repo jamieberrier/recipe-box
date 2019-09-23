@@ -13,7 +13,8 @@ class RecipesController < ApplicationController
 
   # POST: /recipes
   post "/recipes" do
-    if @recipe = Recipe.create(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+    @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+    if @recipe.save
       count = 0
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
@@ -22,8 +23,10 @@ class RecipesController < ApplicationController
           count += 1
         end
       end
+      flash[:notice] = "Successfully created recipe!"
       redirect "/recipes/#{@recipe.id}"
     else
+      flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
       redirect "/recipes/new"
     end
   end
@@ -55,7 +58,6 @@ class RecipesController < ApplicationController
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
           @recipe.ingredients[count].update(name: ingredient[:name], food_group: ingredient[:food_group])
-          #@recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
           @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
           count += 1
         end
