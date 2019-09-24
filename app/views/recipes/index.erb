@@ -4,13 +4,13 @@
   <div class="recipe">
     <% if !recipe.image_url.blank? %>
       <br>
-      <a href="/recipes/<%= recipe.id %>">
+      <a href="/recipes/<%= recipe.slug %>">
         <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="150" width="200">
       </a/><br>
     <% end %>
-    <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
+    <h3><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></h3>
     <p>Course: <%= recipe.course %></p>
-    <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <a href="/users/<%= recipe.user_id %>"><%= recipe.user.display_name %></a></strong>
+    <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <a href="/users/<%= recipe.user.slug %>"><%= recipe.user.display_name %></a></strong>
     <br>
   </div>
   <br>

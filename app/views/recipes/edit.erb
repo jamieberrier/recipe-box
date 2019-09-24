@@ -1,5 +1,5 @@
 <h3>Edit Recipe: <%= @recipe.name %></h3>
-<form action="/recipes/<%= @recipe.id %>" method="POST">
+<form action="/recipes/<%= @recipe.slug %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
 
   <label for="name">Recipe Name:</label>
@@ -65,5 +65,5 @@
 </form>
 <br>
 <form>
-  <button type="submit" formaction="/recipes/<%= @recipe.id %>"> Cancel </button>
+  <button type="submit" formaction="/recipes/<%= @recipe.slug %>"> Cancel </button>
 </form>

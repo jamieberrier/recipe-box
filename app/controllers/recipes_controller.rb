@@ -24,7 +24,7 @@ class RecipesController < ApplicationController
         end
       end
       flash[:notice] = "Successfully created recipe!"
-      redirect "/recipes/#{@recipe.id}"
+      redirect "/recipes/#{@recipe.slug}"
     else
       flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
       redirect "/recipes/new"
@@ -32,14 +32,14 @@ class RecipesController < ApplicationController
   end
 
   # GET: /recipes/5
-  get "/recipes/:id" do
-    @recipe = Recipe.find(params[:id])
+  get "/recipes/:slug" do
+    @recipe = Recipe.find_by_slug(params[:slug])
     erb :"/recipes/show"
   end
 
   # GET: /recipes/5/edit
-  get "/recipes/:id/edit" do
-    @recipe = Recipe.find(params[:id])
+  get "/recipes/:slug/edit" do
+    @recipe = Recipe.find_by_slug(params[:slug])
 
     if authorized_to_edit?(@recipe)
       erb :"/recipes/edit"
@@ -50,8 +50,8 @@ class RecipesController < ApplicationController
   end
 
   # PATCH: /recipes/5
-  patch "/recipes/:id" do
-    @recipe = Recipe.find(params[:id])
+  patch "/recipes/:slug" do
+    @recipe = Recipe.find_by_slug(params[:slug])
 
     if @recipe.update(name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
       count = 0
@@ -74,20 +74,20 @@ class RecipesController < ApplicationController
       end
 
       flash[:message] = "Recipe successfully updated!"
-      redirect "/recipes/#{@recipe.id}"
+      redirect "/recipes/#{@recipe.slug}"
     else
       flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
-      redirect "/recipes/#{@recipe.id}/edit"
+      redirect "/recipes/#{@recipe.slug}/edit"
     end
   end
 
   # DELETE: /recipes/5/delete
-  delete "/recipes/:id/delete" do
+  delete "/recipes/:slug/delete" do
     delete_recipe!
   end
 
   # if a user tries to delete another user's recipe via URL
-  get "/recipes/:id/delete" do
+  get "/recipes/:slug/delete" do
     delete_recipe!
   end
 end

@@ -2,9 +2,9 @@
 
 <% @user.recipes.each do |recipe| %>
   <div class="recipe">
-    <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
+    <h3><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></h3>
     <% if !recipe.image_url.blank? %>
-      <a href="/recipes/<%= recipe.id %>">
+      <a href="/recipes/<%= recipe.slug %>">
         <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="100" width="100">
       </a><br>
       <% end %>

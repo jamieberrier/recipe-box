@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         flash[:notice] = "Successfully signed up!"
-        redirect "/users/#{@user.id}"
+        redirect "/users/#{@user.slug}"
       else
         flash[:error] = "Signup failure: #{@user.errors.full_messages.to_sentence}"
         redirect "/signup"
@@ -47,26 +47,26 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   #! use slug instead of id
-  get "/users/:id" do
-    @user = User.find(params[:id])
+  get "/users/:slug" do
+    @user = User.find_by_slug(params[:slug])
     erb :"/users/show"
   end
 
   # GET: /users/5/edit
   # If user wants to edit their profile
-  get "/users/:id/edit" do
+  get "/users/:slug/edit" do
     erb :"/users/edit"
   end
 
   # PATCH: /users/5
   # If user wants to edit their profile
-  patch "/users/:id" do
-    redirect "/users/:id"
+  patch "/users/:slug" do
+    redirect "/users/:slug"
   end
 
   # DELETE: /users/5/delete
   # If user wants to delete their profile
-  delete "/users/:id/delete" do
+  delete "/users/:slug/delete" do
     redirect "/users"
   end
 end

@@ -7,7 +7,7 @@
   <p>Course: <%= @recipe.course %></p>
 
   <% if !authorized_to_edit?(@recipe) %>
-    <p>By: <a href="/users/<%= @recipe.user.id %>"><%= @recipe.user.display_name %></a></p>
+    <p>By: <a href="/users/<%= @recipe.user.slug %>"><%= @recipe.user.display_name %></a></p>
   <% end %>
 </center>
 
@@ -30,11 +30,11 @@
 <br><br>
 
 <% if authorized_to_edit?(@recipe) %>
-  <form class="" action="/recipes/<%= @recipe.id %>/edit" method="get">
+  <form class="" action="/recipes/<%= @recipe.slug %>/edit" method="get">
     <input type="submit" name="" value="Edit This Recipe">
   </form>
   <br>
-  <form class="" action="/recipes/<%= @recipe.id %>/delete" method="post">
+  <form class="" action="/recipes/<%= @recipe.slug %>/delete" method="post">
     <input type="hidden" name="_method" value="delete">
     <input type="submit" name="" value="Delete This Recipe">
   </form>

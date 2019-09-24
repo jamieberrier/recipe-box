@@ -14,7 +14,7 @@ class ApplicationController < Sinatra::Base
   # welcome page
   get "/" do
     if logged_in?
-      redirect "/users/#{current_user.id}"
+      redirect "/users/#{current_user.slug}"
     else
       erb :welcome
     end
@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
       if @user && @user.authenticate(params[:user][:password])
 	       session[:user_id] = @user.id
          flash[:message] = "Welcome #{@user.display_name}!"
-         redirect "/users/#{@user.id}"
+         redirect "/users/#{@user.slug}"
       elsif !@user
         flash[:alert] = "Incorrect email address"
         redirect "/login"
@@ -57,11 +57,11 @@ class ApplicationController < Sinatra::Base
     end
 
     def delete_recipe!
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.find_by_slug(params[:slug])
       if logged_in? && current_user.id == @recipe.user_id
         @recipe.destroy
         flash[:message] = "Recipe deleted."
-        redirect "/users/#{@recipe.user_id}"
+        redirect "/users/#{@recipe.user.slug}"
       else
         flash[:error] = "Not yours to delete!"
         redirect "/recipes"
