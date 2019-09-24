@@ -1,5 +1,5 @@
-<h1>Welcome, <%= current_user.display_name %></h1>
-<h2>All Recipes in the Box!</h2>
+<h1>All Recipes in the Box!</h1>
+<h2></h2>
 
 <% @recipes.each do |recipe| %>
   <div class="recipe">
@@ -7,7 +7,7 @@
     <p>Course: <%= recipe.course %></p>
     <% if !recipe.image_url.blank? %>
       <a href="/recipes/<%= recipe.id %>">
-        <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="300" width="400">
+        <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="150" width="200">
       </a/><br>
     <% end %>
     <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <%= recipe.user.display_name %></strong>
