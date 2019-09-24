@@ -53,7 +53,7 @@ class ApplicationController < Sinatra::Base
     def logout!
       session.clear
       flash[:notice] = "You are logged out!"
-      redirect "/login"
+      redirect "/"
     end
 
     def delete_recipe!
