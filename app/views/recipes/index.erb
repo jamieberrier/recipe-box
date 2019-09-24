@@ -1,17 +1,17 @@
 <h1>All Recipes in the Box!</h1>
-<h2></h2>
 
 <% @recipes.each do |recipe| %>
   <div class="recipe">
-    <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
-    <p>Course: <%= recipe.course %></p>
     <% if !recipe.image_url.blank? %>
+      <br>
       <a href="/recipes/<%= recipe.id %>">
         <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="150" width="200">
       </a/><br>
     <% end %>
+    <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
+    <p>Course: <%= recipe.course %></p>
     <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <%= recipe.user.display_name %></strong>
-    <br><br>
+    <br>
   </div>
   <br>
 <% end %>
