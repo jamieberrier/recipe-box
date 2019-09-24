@@ -130,6 +130,7 @@
 
   .recipe {
     border-bottom: 2px dashed #ccc;
+    text-align: center;
   }
 }
 

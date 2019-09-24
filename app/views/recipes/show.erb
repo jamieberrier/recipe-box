@@ -8,14 +8,14 @@
 <% end %>
 <p>Course: <%= @recipe.course %></p>
 
-<h3>Ingredients</h3>
+<h2>Ingredients</h2>
 <% @recipe.recipe_ingredients.each do |ingredient| %>
   <% i = Ingredient.find(ingredient.ingredient_id) %>
   <%= i.name %> -- <%= ingredient.ingredient_amount %>
   <br>
 <% end %>
 <br>
-<h3>Instructions</h3>
+<h2>Instructions</h2>
 <div style="white-space: pre-wrap;"><%= @recipe.instructions %></div>
 <br><br>
 
