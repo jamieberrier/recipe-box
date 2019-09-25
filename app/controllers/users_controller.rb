@@ -13,13 +13,13 @@ class UsersController < ApplicationController
   post "/users" do
     @user = User.find_by(email: params[:user][:email])
     if @user
-      flash[:notice] = "User already exists, please log in"
+      flash[:warning] = "User already exists, please log in"
       redirect "/login"
     else
       @user = User.new(params[:user])
       if @user.save
         session[:user_id] = @user.id
-        flash[:notice] = "Successfully signed up!"
+        flash[:success] = "Successfully signed up!"
         redirect "/users/#{@user.slug}"
       else
         flash[:error] = "Signup failure: #{@user.errors.full_messages.to_sentence}"

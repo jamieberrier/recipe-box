@@ -23,7 +23,7 @@ class RecipesController < ApplicationController
           count += 1
         end
       end
-      flash[:notice] = "Successfully created recipe!"
+      flash[:success] = "Successfully created recipe!"
       redirect "/recipes/#{@recipe.slug}"
     else
       flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
@@ -73,7 +73,7 @@ class RecipesController < ApplicationController
         end
       end
 
-      flash[:message] = "Recipe successfully updated!"
+      flash[:success] = "Recipe successfully updated!"
       redirect "/recipes/#{@recipe.slug}"
     else
       flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"

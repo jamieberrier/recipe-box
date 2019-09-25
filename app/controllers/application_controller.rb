@@ -26,13 +26,13 @@ class ApplicationController < Sinatra::Base
 
       if @user && @user.authenticate(params[:user][:password])
 	       session[:user_id] = @user.id
-         flash[:message] = "Welcome #{@user.display_name}!"
+         flash[:info] = "Welcome #{@user.display_name}!"
          redirect "/users/#{@user.slug}"
       elsif !@user
-        flash[:alert] = "Incorrect email address"
+        flash[:error] = "Incorrect email address"
         redirect "/login"
       else @user && !@user.authenticate(params[:user][:password])
-        flash[:alert] = "Incorrect password"
+        flash[:error] = "Incorrect password"
         redirect "/login"
       end
     end
@@ -52,7 +52,7 @@ class ApplicationController < Sinatra::Base
 
     def logout!
       session.clear
-      flash[:notice] = "You are logged out!"
+      flash[:success] = "You are logged out!"
       redirect "/"
     end
 
@@ -60,12 +60,21 @@ class ApplicationController < Sinatra::Base
       @recipe = Recipe.find_by_slug(params[:slug])
       if logged_in? && current_user.id == @recipe.user_id
         @recipe.destroy
-        flash[:message] = "Recipe deleted."
+        flash[:success] = "Recipe deleted."
         redirect "/users/#{@recipe.user.slug}"
       else
         flash[:error] = "Not yours to delete!"
         redirect "/recipes"
       end
     end
+=begin
+    def styled_flash
+      flash.keys.each do |type|
+        <div data-alert class="flash #{type} alert-box radius">
+          flash[type]
+        </div>
+      end
+    end
+=end
   end # end of helpers
 end
