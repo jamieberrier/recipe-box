@@ -17,10 +17,11 @@
     <% if logged_in? %>
       <div class="topnav">
         <ul>
-          <li><a href="/recipes">All Recipes</a></li>
-          <li><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
-          <li><a href="/recipes/new">New Recipe</a></li>
+          <li style="float:left"><a href="/recipes">Recipe Box</a></li>
           <li style="float:right"><a href="/logout">Log Out</a></li>
+          <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
+          <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
+          <!--li style="float:right"><a href="/recipes">All Recipes</a></li-->
         </ul>
       </div>
     <% end %>
