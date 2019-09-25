@@ -7,7 +7,14 @@ class RecipesController < ApplicationController
   end
 
   # GET: /recipes/new
+  # render view to get user input for number of ingredients to use when generating new recipe form
   get "/recipes/new" do
+    erb :"/recipes/number_of_ingredients"
+  end
+
+  # save user input for number of ingredients to pass when rendering recipes/new
+  post "/recipes/new" do
+    @num = params[:num].to_i
     erb :"/recipes/new"
   end
 
