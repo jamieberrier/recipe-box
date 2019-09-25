@@ -9,14 +9,12 @@
   <% if !authorized_to_edit?(@recipe) %>
     <p>By: <a href="/users/<%= @recipe.user.slug %>"><%= @recipe.user.display_name %></a></p>
   <% end %>
-</center>
 
 <% if !@recipe.image_url.blank? %>
-  <div class="recipe">
+    <img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %> photo" height="300" width="400">
     <br>
-    <img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %> photo" height="300" width="400"><br>
-  </div>
 <% end %>
+</center>
 
 <h2>Ingredients</h2>
 <% @recipe.recipe_ingredients.each do |ingredient| %>
