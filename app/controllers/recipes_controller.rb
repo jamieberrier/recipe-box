@@ -38,6 +38,11 @@ class RecipesController < ApplicationController
     end
   end
 
+  post "/search" do
+    @recipes = Recipe.search(params[:search])
+    erb :"/recipes/results"
+  end
+
   # GET: /recipes/5
   get "/recipes/:slug" do
     @recipe = Recipe.find_by_slug(params[:slug])

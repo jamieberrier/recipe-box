@@ -91,6 +91,10 @@
     border-top: 2px dashed #ccc;
   }
 
+  .search {
+    text-align: right;
+  }
+
   /* Add a black background color to the top navigation */
   .topnav {
     background-color: #333;
