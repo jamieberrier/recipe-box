@@ -86,6 +86,11 @@
     padding-top: 20px;
   }
 
+  .recipe {
+    text-align: center;
+    border-top: 2px dashed #ccc;
+  }
+
   /* Add a black background color to the top navigation */
   .topnav {
     background-color: #333;
@@ -122,11 +127,9 @@
     background-color: #FFDAB9;
   }
 
-  .recipe {
-    text-align: center;
-    display: inline-flex;
-    border: 2px dashed #ccc;
-  }
+  /*display: inline-flex;
+  border: 2px dashed #ccc;*/
+
   /* Ingredients */
   fieldset {
     display: inline-block;
