@@ -52,7 +52,7 @@ class ApplicationController < Sinatra::Base
 
     def logout!
       session.clear
-      flash[:success] = "You are logged out!"
+      flash[:info] = "You are logged out!"
       redirect "/"
     end
 
@@ -67,14 +67,5 @@ class ApplicationController < Sinatra::Base
         redirect "/recipes"
       end
     end
-=begin
-    def styled_flash
-      flash.keys.each do |type|
-        <div data-alert class="flash #{type} alert-box radius">
-          flash[type]
-        </div>
-      end
-    end
-=end
   end # end of helpers
 end
