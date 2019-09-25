@@ -121,7 +121,7 @@
   li a:hover {
     background-color: #FFDAB9;
   }
-  
+
   .recipe {
     text-align: center;
     border-top: 2px dashed #ccc;
@@ -135,6 +135,8 @@
     margin: 20px;
     background:#ddd;
     color:#666;border:1px solid #ccc;
+    text-align: center;
+    align-content: center;
   }
 
   .info {
@@ -156,6 +158,32 @@
     background:#F2DEDE;
     color:#B94A48;
     border:1px solid #EED3D7;
+  }
+}
+
+@media screen and (max-width: 776px) {
+  /* add style to flash */
+  .flash {
+    width: 500px;
+    padding: 5px;
+    font-weight: bold;
+    margin: 20px;
+    background:#ddd;
+    color:#666;border:1px solid #ccc;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  /* add style to flash */
+  .flash {
+    width: 400px;
+    padding: 5px;
+    font-weight: bold;
+    margin: 20px;
+    background:#ddd;
+    color:#666;border:1px solid #ccc;
+    text-align: center;
   }
 }
 
@@ -187,5 +215,16 @@
   h2 {
     font-size: 18px;
     line-height: 24px;
+  }
+
+  /* add style to flash */
+  .flash {
+    width: 300px;
+    padding: 5px;
+    font-weight: bold;
+    margin: 20px;
+    background:#ddd;
+    color:#666;border:1px solid #ccc;
+    text-align: center;
   }
 }
