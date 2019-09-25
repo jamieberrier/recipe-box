@@ -124,7 +124,29 @@
 
   .recipe {
     text-align: center;
-    border-top: 2px dashed #ccc;
+    display: inline-flex;
+    border: 2px dashed #ccc;
+  }
+  /* Ingredients */
+  fieldset {
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;
+  }
+
+  table {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;
   }
 
   /* add style to flash */

@@ -1,50 +1,60 @@
-<h3>Create a New Recipe</h3>
+<h1>Create a New Recipe</h1>
+<center>
 <form action="/recipes" method="POST">
-  <label for="name">Recipe Name:</label>
-  <input id="name" type="text" name="recipe[name]">
-  <br>
-  <!-- make drop down menu? -->
-  <label>Recipe Course:</label>
-  <input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input>
-  <input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input>
-  <input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input>
-  <input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input>
-  <input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input>
-  <input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input>
-  <input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input>
-  <input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input>
-  <br>
-  <label for="description">Recipe Description:</label><br>
-  <textarea id="description" name="recipe[description]" rows="5" cols="60"></textarea>
-
-  <br>
-  <label for="image_url">Recipe Image URL:</label>
-  <input id="image_url" type="text" name="recipe[image_url]">
-  <br>
-  <label for="total_time">Total Time:</label>
-  <input id="total_time" type="text" name="recipe[total_time]">
-
-  <label for="cook_time">Cook Time:</label>
-  <input id="cook_time" type="text" name="recipe[cook_time]">
+  <h4><label for="name">Recipe Name</label></h4>
+  <input id="name" type="text" name="recipe[name]" size="60">
   <br><br>
+  <!-- make drop down menu? -->
+  <h4><label>Recipe Course</label></h4>
+  <table style="width:100%">
+    <tr>
+      <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
+      <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
+      <td><input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input></td>
+      <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input></td>
+    </tr>
+    <tr>
+      <td><input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input></td>
+      <td><input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input></td>
+      <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
+      <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
+    </tr>
+    </table>
+  <br>
+  <h4><label for="description">Recipe Description</label></h4>
+  <textarea id="description" name="recipe[description]" rows="5" cols="90"></textarea>
+  <br>
+  <br>
+  <h4><label for="image_url">Recipe Image URL</label></h4>
+  <input id="image_url" type="text" name="recipe[image_url]" size="50">
+  <br>
+  <br>
+  <table>
+    <tr>
+      <th>Total Time</th>
+      <th>Cook Time</th>
+    </tr>
+    <tr>
+      <td><input id="total_time" type="text" name="recipe[total_time]"></td>
+      <td><input id="cook_time" type="text" name="recipe[cook_time]"></td>
+    </tr>
+    </table>
+  <br>
 
-  <!-- Button to add another ingredient? -->
-  <label>Ingredients:</label><br>
+  <h2>Ingredients</h2>
   <% 10.times do %>
     <fieldset>
       <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]">
+      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" size="30">
       <label for="ingredient_amount">Amount:</label>
       <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]">
-      <label for="food_group">Food Group:</label>
-      <input id="food_group" type="text" name="recipe[ingredients][][food_group]">
       <br>
     </fieldset>
   <% end %>
-
+  <!-- Button to add another ingredient? -->
   <br><br>
-  <label for="instructions">Instructions:</label><br>
-  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="60"></textarea>
+  <h2><label for="instructions">Instructions</label></h2>
+  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="90"></textarea>
   <br><br>
-  <input type="submit" value="Create Recipe">
+  <input type="submit" value="Create Recipe"></center>
 </form>
