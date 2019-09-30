@@ -12,12 +12,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
+    <script src="https://kit.fontawesome.com/e02f75e599.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <% if logged_in? %>
       <div class="topnav">
         <ul>
           <li style="float:left"><a href="/recipes">Recipe Box</a></li>
+          <li>
+            <form class="search-box" method="get" action="/search">
+              <input class="search-txt" type="text" name="search" placeholder="Type to search">
+              <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+          </li>
           <li style="float:right"><a href="/logout">Log Out</a></li>
           <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
           <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
