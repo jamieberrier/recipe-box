@@ -38,8 +38,17 @@ class RecipesController < ApplicationController
     end
   end
 
-  post "/search" do
+  get "/search" do
     @recipes = Recipe.search(params[:search])
+
+    Recipe.all.each do |recipe|
+      recipe.ingredients.each do |ingredient|
+        if ingredient.name == params[:search] && !@recipes.ids.include?(recipe.id)
+          @recipes << recipe
+        end
+      end
+    end
+
     erb :"/recipes/results"
   end
 
