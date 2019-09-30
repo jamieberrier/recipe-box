@@ -1,4 +1,5 @@
 <% if @recipes.present? %>
+  <h1>Search Results</h1>
   <% @recipes.each do |recipe| %>
     <div class="recipe">
       <% if !recipe.image_url.blank? %>
@@ -10,9 +11,10 @@
       <h3><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></h3>
       <p>Course: <%= recipe.course %></p>
       <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <a href="/users/<%= recipe.user.slug %>"><%= recipe.user.display_name %></a></strong>
-      <br>
+      <br><br>
     </div>
   <% end %>
 <% else %>
-  <p>There are no Products containing the term(s) <%= params[:search] %>.</p>
+<br><br>
+  <p>There are no recipes containing <%= params[:search] %>.</p>
 <% end %>
