@@ -27,6 +27,10 @@
 <div style="white-space: pre-wrap;"><%= @recipe.instructions %></div>
 <br><br>
 
+<button onclick="window.location.href = '<%= request.referer %>';">Back</button>
+<br><br>
+
+
 <% if authorized_to_edit?(@recipe) %>
   <form class="" action="/recipes/<%= @recipe.slug %>/edit" method="get">
     <input type="submit" name="" value="Edit This Recipe">
