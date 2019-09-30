@@ -91,8 +91,51 @@
     border-top: 2px dashed #ccc;
   }
 
-  .search {
-    text-align: right;
+  .search-box {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+  }
+
+  .search-btn {
+    color: white;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+  }
+
+  .search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0;
+  }
+
+  .search-box:hover > .search-txt {
+    width: 240px;
+    padding: 0 6px;
+  }
+
+  .search-box:hover > .search-btn {
+    background: white;
+    color: black;
   }
 
   /* Add a black background color to the top navigation */
