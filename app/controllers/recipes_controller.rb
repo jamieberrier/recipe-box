@@ -31,7 +31,7 @@ class RecipesController < ApplicationController
         end
       end
       flash[:success] = "Successfully created recipe!"
-      redirect "/recipes/#{@recipe.slug}"
+      redirect "/users/#{@recipe.user.slug}"
     else
       flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
       redirect "/recipes/new"
