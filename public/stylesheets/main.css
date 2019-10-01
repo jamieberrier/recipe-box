@@ -11,13 +11,13 @@
     width: 100%;
   }
 
-  /* --- Welcome Page Styles --- */
+  /* --- Welcome Page Styles ---
   body {
     background-color: lightblue;
     color: #333;
     font-family: Sans-Serif;
     line-height: 18px;
-  }
+  }*/
 
   .wrapper {
     background: #fff;
@@ -53,10 +53,12 @@
 
   h4 {
     text-align: center;
+    font-weight: bold;
   }
 
   p {
     margin-bottom: 18px;
+    text-align: center;
   }
 
   .main {
@@ -78,6 +80,7 @@
 
   .sidebar ul {
     font-size: 14px;
+    text-align: center;
   }
 
   .branding {
@@ -239,9 +242,8 @@
     border:1px solid #EED3D7;
   }
 }
-
+/*
 @media screen and (max-width: 776px) {
-  /* add style to flash */
   .flash {
     width: 500px;
     padding: 5px;
@@ -254,7 +256,6 @@
 }
 
 @media screen and (max-width: 648px) {
-  /* add style to flash */
   .flash {
     width: 400px;
     padding: 5px;
@@ -296,7 +297,6 @@
     line-height: 24px;
   }
 
-  /* add style to flash */
   .flash {
     width: 300px;
     padding: 5px;
@@ -306,4 +306,4 @@
     color:#666;border:1px solid #ccc;
     text-align: center;
   }
-}
+}*/
