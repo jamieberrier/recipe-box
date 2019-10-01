@@ -25,7 +25,7 @@
   <br>
 
   <h4><label for="description">Recipe Description</label></h4>
-  <textarea id="description" name="recipe[description]" rows="5" cols="90"><%= @recipe.description %></textarea>
+  <textarea class="textarea" id="description" name="recipe[description]"><%= @recipe.description %></textarea>
   <br><br>
   <h4><label for="image_url">Recipe Image URL</label></h4>
   <input id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" size="50">
@@ -65,7 +65,7 @@
   <% end %>
   <br><br>
   <h2><label for="instructions">Instructions</label></h2>
-  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="90"><%= @recipe.instructions %></textarea>
+  <textarea class="textarea" id="instructions" name="recipe[instructions]"><%= @recipe.instructions %></textarea>
   <br><br>
   <input class="button is-success is-small is-fullwidth" type="submit" value="Update Recipe">
 </form>

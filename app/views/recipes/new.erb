@@ -1,59 +1,146 @@
 <br><h2>Create a New Recipe</h2>
-<center>
-<form action="/recipes" method="POST">
-  <h4><label for="name">Recipe Name</label></h4>
-  <input id="name" type="text" name="recipe[name]" size="60">
-  <br><br>
-  <!-- make drop down menu? -->
-  <h4><label>Recipe Course</label></h4>
-  <table class="course_table" style="width:100%">
-    <tr>
-      <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
-      <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
-      <td><input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input></td>
-      <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input></td>
-    </tr>
-    <tr>
-      <td><input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input></td>
-      <td><input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input></td>
-      <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
-      <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
-    </tr>
-  </table>
-  <br>
-  <h4><label for="description">Recipe Description</label></h4>
-  <textarea id="description" name="recipe[description]" rows="5" cols="90"></textarea>
-  <br>
-  <br>
-  <h4><label for="image_url">Recipe Image URL</label></h4>
-  <input id="image_url" type="text" name="recipe[image_url]" size="50">
-  <br>
-  <br>
-  <table class="table">
-    <tr>
-      <th><h4>Total Time</h4></th>
-      <th><h4>Cook Time</h4></th>
-    </tr>
-    <tr>
-      <td><input id="total_time" type="text" name="recipe[total_time]"></td>
-      <td><input id="cook_time" type="text" name="recipe[cook_time]"></td>
-    </tr>
-    </table>
 
-  <h2>Ingredients</h2>
-  <% @num.times do %>
-    <fieldset>
-      <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" size="30">
-      <label for="ingredient_amount">Amount:</label>
-      <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]">
-      <br>
-    </fieldset>
-  <% end %>
+<form action="/recipes" method="POST">
+  <div class="field">
+    <h4><label class="label" for="name">Recipe Name</label></h4>
+    <div class="control">
+      <input class="input is-small" id="name" type="text" name="recipe[name]">
+    </div>
+  </div>
+  <br>
+  <!-- make drop down menu? -->
+  <div class="field">
+    <h4><label class="label">Recipe Course</label></h4>
+    <div class="control">
+      <table class="table is-fullwidth">
+        <tbody>
+          <tr>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Hors d'oeuvres
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Amuse-Bouche
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Soup
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Appetizer
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Salad
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Entree
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Side
+              </label>
+            </td>
+            <td>
+              <label class="radio">
+                <input type="radio" name="recipe[course]">
+                Dessert
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="field">
+    <h4><label class="label" for="description">Recipe Description</label></h4>
+    <div class="control">
+      <textarea class="textarea" id="description" name="recipe[description]"></textarea>
+    </div>
+  </div>
+  <br>
+  <div class="field">
+    <h4><label class="label" for="image_url">Recipe Image URL</label></h4>
+    <div class="control">
+      <input class="input is-small" id="image_url" type="text" name="recipe[image_url]">
+    </div>
+  </div>
+  <br>
+
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <table class="table">
+        <tr>
+          <th><h4>Total Time</h4></th>
+          <th><h4>Cook Time</h4></th>
+        </tr>
+        <tr>
+          <td><input class="input is-small" id="total_time" type="text" name="recipe[total_time]"></td>
+          <td><input class="input is-small" id="cook_time" type="text" name="recipe[cook_time]"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+
+  <div class="field">
+    <label class="label"><h2>Ingredients</h2></label>
+  </div>
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <table class="table is-fullwidth">
+        <% @num.times do %>
+          <tr>
+            <td>
+              <label for="ingredient_name">Name </label>
+              <input class="input is-small" id="ingredient_name" type="text" name="recipe[ingredients][][name]">
+            </td>
+            <td>
+              <label for="ingredient_amount">Amount </label>
+              <input class="input is-small" id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]">
+            </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
   <!-- Button to add another ingredient? -->
-  <br><br>
-  <h2><label for="instructions">Instructions</label></h2>
-  <textarea id="instructions" name="recipe[instructions]" rows="30" cols="90"></textarea>
-  <br><br>
-  <input class="button is-success is-small is-fullwidth" type="submit" value="Create Recipe"></center>
+  <div class="field">
+    <label class="label" for="instructions"><h2>Instructions</h2></label>
+    <div class="control">
+      <textarea class="textarea" id="instructions" name="recipe[instructions]"></textarea>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <input class="button is-success is-small is-fullwidth" type="submit" value="Create Recipe"></center>
+    </div>
+  </div>
 </form>
