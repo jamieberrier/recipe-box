@@ -42,8 +42,8 @@ class RecipesController < ApplicationController
     @recipes = Recipe.search(params[:search])
 
     Recipe.all.each do |recipe|
-      recipe.ingredients.each do |ingredient|
-        if ingredient.name == params[:search] && !@recipes.ids.include?(recipe.id)
+      if !@recipes.ids.include?(recipe.id)
+        recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
           @recipes << recipe
         end
       end
