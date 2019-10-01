@@ -4,7 +4,7 @@
   <input id="hidden" type="hidden" name="_method" value="patch">
 
   <h4><label for="name">Recipe Name</label></h4>
-  <input id="name" type="text" name="recipe[name]" value="<%= @recipe.name %>">
+  <input id="name" type="text" name="recipe[name]" value="<%= @recipe.name %>" size="60">
   <br><br>
 
   <h4><label>Recipe Course</label></h4>
@@ -25,10 +25,10 @@
   <br>
 
   <h4><label for="description">Recipe Description</label></h4>
-  <textarea id="description" name="recipe[description]" rows="5" cols="60"><%= @recipe.description %></textarea>
+  <textarea id="description" name="recipe[description]" rows="5" cols="90"><%= @recipe.description %></textarea>
   <br><br>
   <h4><label for="image_url">Recipe Image URL</label></h4>
-  <input id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>">
+  <input id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" size="50">
   <br><br>
   <table class="table">
     <tr>
@@ -46,7 +46,7 @@
     <% i = Ingredient.find_by(id: ingredient.ingredient_id) %>
     <fieldset>
       <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" value="<%= i.name %>">
+      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" value="<%= i.name %>" size="30">
       <label for="ingredient_amount">Amount:</label>
       <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
       <br>
@@ -57,7 +57,7 @@
   <% 5.times do %>
     <fieldset>
       <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[new_ingredients][][name]">
+      <input id="ingredient_name" type="text" name="recipe[new_ingredients][][name]" size="30">
       <label for="ingredient_amount">Amount:</label>
       <input id="ingredient_amount" type="text" name="recipe[new_ingredients][][ingredient_amount]">
       <br>
