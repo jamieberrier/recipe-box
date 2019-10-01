@@ -51,6 +51,10 @@
     text-align: center;
   }
 
+  h4 {
+    text-align: center;
+  }
+
   p {
     margin-bottom: 18px;
   }
@@ -93,9 +97,9 @@
 
   .search-box {
     position: absolute;
-    top: 50%;
-    left: 35%;
-    transform: translate(-50%, -50%);
+    top: 15%;
+    left: 30%;
+    transform: translate(-35%, -35%);
     background: #333;
     height: 40px;
     border-radius: 40px;
@@ -122,14 +126,14 @@
     float: left;
     padding: 0;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     transition: 0.4s;
     line-height: 40px;
     width: 0;
   }
 
   .search-box:hover > .search-txt {
-    width: 240px;
+    width: 160px;
     padding: 0 6px;
   }
 
@@ -186,17 +190,20 @@
     padding-bottom: 0.625em;
     padding-left: 0.75em;
     padding-right: 0.75em;
-    border: 2px groove;
+    /*border: 2px groove;*/
   }
 
-  table {
+  .course_table {
+    border-top: 2px groove;
     margin-left: 2px;
     margin-right: 2px;
     padding-top: 0.35em;
     padding-bottom: 0.625em;
     padding-left: 0.75em;
     padding-right: 0.75em;
-    border: 2px groove;
+    text-align: center;
+    border-collapse: separate;
+    /*border: 2px groove;*/
   }
 
   /* add style to flash */

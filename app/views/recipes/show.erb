@@ -27,17 +27,16 @@
 <div style="white-space: pre-wrap;"><%= @recipe.instructions %></div>
 <br><br>
 
-<button onclick="window.location.href = '<%= request.referer %>';">Back</button>
-<br><br>
-
+<button class="button is-info is-small is-fullwidth" onclick="window.location.href = '<%= request.referer %>';">Back</button>
+<br>
 
 <% if authorized_to_edit?(@recipe) %>
   <form class="" action="/recipes/<%= @recipe.slug %>/edit" method="get">
-    <input type="submit" name="" value="Edit This Recipe">
+    <input class="button is-success is-small is-fullwidth" type="submit" name="" value="Edit This Recipe">
   </form>
   <br>
   <form class="" action="/recipes/<%= @recipe.slug %>/delete" method="post">
     <input type="hidden" name="_method" value="delete">
-    <input type="submit" name="" value="Delete This Recipe">
+    <input class="button is-danger is-small is-fullwidth" type="submit" name="" value="Delete This Recipe">
   </form>
  <% end %>

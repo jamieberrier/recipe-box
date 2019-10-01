@@ -1,4 +1,4 @@
-<h1>Create a New Recipe</h1>
+<br><h2>Create a New Recipe</h2>
 <center>
 <form action="/recipes" method="POST">
   <h4><label for="name">Recipe Name</label></h4>
@@ -6,7 +6,7 @@
   <br><br>
   <!-- make drop down menu? -->
   <h4><label>Recipe Course</label></h4>
-  <table style="width:100%">
+  <table class="course_table" style="width:100%">
     <tr>
       <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
       <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
@@ -19,7 +19,7 @@
       <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
       <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
     </tr>
-    </table>
+  </table>
   <br>
   <h4><label for="description">Recipe Description</label></h4>
   <textarea id="description" name="recipe[description]" rows="5" cols="90"></textarea>
@@ -29,17 +29,16 @@
   <input id="image_url" type="text" name="recipe[image_url]" size="50">
   <br>
   <br>
-  <table>
+  <table class="table">
     <tr>
-      <th>Total Time</th>
-      <th>Cook Time</th>
+      <th><h4>Total Time</h4></th>
+      <th><h4>Cook Time</h4></th>
     </tr>
     <tr>
       <td><input id="total_time" type="text" name="recipe[total_time]"></td>
       <td><input id="cook_time" type="text" name="recipe[cook_time]"></td>
     </tr>
     </table>
-  <br>
 
   <h2>Ingredients</h2>
   <% @num.times do %>
@@ -56,5 +55,5 @@
   <h2><label for="instructions">Instructions</label></h2>
   <textarea id="instructions" name="recipe[instructions]" rows="30" cols="90"></textarea>
   <br><br>
-  <input type="submit" value="Create Recipe"></center>
+  <input class="button is-success is-small is-fullwidth" type="submit" value="Create Recipe"></center>
 </form>
