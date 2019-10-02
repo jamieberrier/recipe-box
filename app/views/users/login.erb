@@ -1,10 +1,24 @@
 <h2>Log In</h2>
 <form action="/login" method="POST">
-  <label for="email">Email:</label>
-  <input type="text" id="email" name="user[email]">
-
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="user[password]">
-
-  <input type="submit" value="Log In">
+  <div class="field">
+    <div class="control has-icons-left">
+      <input class="input" type="email" placeholder="Email" name="user[email]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control has-icons-left">
+      <input class="input" type="password" placeholder="Password" name="user[password]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input class="button is-primary is-fullwidth"type="submit" value="Log In">
+    </div>
+  </div>
 </form>

@@ -1,13 +1,32 @@
 <h2>Sign Up</h2>
 <form action="/users" method="POST">
-  <label for="display_name">Display Name:</label>
-  <input type="text" id="display_name" name="user[display_name]">
-  <br><br>
-  <label for="email">Email:</label>
-  <input type="text" id="email" name="user[email]">
-  <br><br>
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="user[password]">
-  <br><br>
-  <input type="submit" value="Sign Up">
+  <div class="field">
+    <div class="control has-icons-left">
+      <input class="input" type="text" placeholder="Display Name" name="user[display_name]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control has-icons-left">
+      <input class="input" type="email" placeholder="Email" name="user[email]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control has-icons-left">
+      <input class="input" type="password" placeholder="Password" name="user[password]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input class="button is-primary is-fullwidth" type="submit" value="Sign Up">
+    </div>
+  </div>
 </form>
