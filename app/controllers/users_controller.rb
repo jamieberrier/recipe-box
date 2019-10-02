@@ -71,12 +71,12 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     # if successfully update display_name and email, check for new_password
     if @user.update(display_name: params[:user][:display_name], email: params[:user][:email])
-      # only updte password if params[:new_password] is not blank
-      if params[:new_password].blank?
+      # only update password if params[:new_password] is not blank
+      if !params[:user][:new_password].blank?
+        @user.update(password: params[:user][:new_password])
         flash[:success] = "Profile successfully updated!"
         redirect "/users/#{@user.slug}"
       else
-        # update password
         flash[:success] = "Profile successfully updated!"
         redirect "/users/#{@user.slug}"
       end
@@ -89,6 +89,24 @@ class UsersController < ApplicationController
   # DELETE: /users/5/delete
   # If user wants to delete their profile
   delete "/users/:slug/delete" do
-    redirect "/"
+    delete_user!
   end
+
+  get "/users/:slug/delete" do
+    delete_user!
+  end
+
+  helpers do
+    def delete_user!
+      @user = User.find_by_slug(params[:slug])
+      if logged_in? && current_user == @user
+        @user.destroy
+        flash[:success] = "User profile deleted."
+        redirect "/"
+      else
+        flash[:error] = "Not yours to delete!"
+        redirect "/users/#{@user.slug}"
+      end
+    end
+  end # end helpers
 end
