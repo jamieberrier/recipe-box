@@ -15,3 +15,14 @@
   </div>
   <br>
 <% end %>
+
+<% if @user == current_user %>
+  <form class="" action="/users/<%= @user.slug %>/edit" method="get">
+    <input class="button is-success is-small is-fullwidth" type="submit" name="" value="Edit Profile">
+  </form>
+  <br>
+  <form class="" action="/users/<%= @user.slug %>/delete" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input class="button is-danger is-small is-fullwidth" type="submit" name="" value="Delete Profile">
+  </form>
+ <% end %>
