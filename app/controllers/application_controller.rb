@@ -29,7 +29,7 @@ class ApplicationController < Sinatra::Base
          flash[:info] = "Welcome #{@user.display_name}!"
          redirect "/users/#{@user.slug}"
       elsif !@user
-        flash[:error] = "Incorrect email address"
+        flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
         redirect "/login"
       else @user && !@user.authenticate(params[:user][:password])
         flash[:error] = "Incorrect password"
