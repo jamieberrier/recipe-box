@@ -55,18 +55,40 @@ class UsersController < ApplicationController
   # GET: /users/5/edit
   # If user wants to edit their profile
   get "/users/:slug/edit" do
-    erb :"/users/edit"
+    @user = User.find_by_slug(params[:slug])
+
+    if logged_in? && @user == current_user
+      erb :"/users/edit"
+    else
+      flash[:error] = "Not yours to edit!"
+      redirect "/recipes"
+    end
   end
 
   # PATCH: /users/5
   # If user wants to edit their profile
   patch "/users/:slug" do
-    redirect "/users/:slug"
+    @user = User.find_by_slug(params[:slug])
+    # if successfully update display_name and email, check for new_password
+    if @user.update(display_name: params[:user][:display_name], email: params[:user][:email])
+      # only updte password if params[:new_password] is not blank
+      if params[:new_password].blank?
+        flash[:success] = "Profile successfully updated!"
+        redirect "/users/#{@user.slug}"
+      else
+        # update password
+        flash[:success] = "Profile successfully updated!"
+        redirect "/users/#{@user.slug}"
+      end
+    else
+      flash[:error] = "Edit failure: #{@user.errors.full_messages.to_sentence}"
+      redirect "/users/#{@user.slug}/edit"
+    end
   end
 
   # DELETE: /users/5/delete
   # If user wants to delete their profile
   delete "/users/:slug/delete" do
-    redirect "/users"
+    redirect "/"
   end
 end

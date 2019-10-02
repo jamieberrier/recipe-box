@@ -1,1 +1,45 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<br><h2>Edit Profile</h2>
+<form action="/users/<%= @user.slug %>" method="POST">
+<input id="hidden" type="hidden" name="_method" value="patch">
+
+  <div class="field">
+    <h4><label class="label" for="name">Display Name</label></h4>
+    <div class="control has-icons-left">
+      <input class="input" type="text" id="name" name="user[display_name]" value="<%= @user.display_name %>">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <h4><label class="label" for="email">Email</label></h4>
+    <div class="control has-icons-left">
+      <input class="input" type="email" id="email" name="user[email]" value="<%= @user.email %>">
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <h4><label class="label" for="new_password">New Password</label></h4>
+    <div class="control has-icons-left">
+      <input class="input" type="password" id="new_password" placeholder="Type in a new password" name="user[new_password]">
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input class="button is-success is-small is-fullwidth" type="submit" value="Update Profile">
+    </div>
+  </div>
+</form>
+<br>
+<form>
+  <div class="field">
+    <div class="control">
+      <button class="button is-info is-small is-fullwidth" type="submit" formaction="/users/<%= @user.slug %>">Cancel</button>
+    </div>
+  </div>
+</form>
