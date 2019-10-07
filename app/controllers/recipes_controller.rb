@@ -2,14 +2,24 @@ class RecipesController < ApplicationController
 
   # GET: /recipes
   get "/recipes" do
-    @recipes = Recipe.all
-    erb :"/recipes/index"
+    if logged_in?
+      @recipes = Recipe.all
+      erb :"/recipes/index"
+    else
+      flash[:error] = "You must be logged in to view recipes"
+      redirect "/"
+    end
   end
 
   # GET: /recipes/new
   # render view to get user input for number of ingredients to use when generating new recipe form
   get "/recipes/new" do
-    erb :"/recipes/number_of_ingredients"
+    if logged_in?
+      erb :"/recipes/number_of_ingredients"
+    else
+      flash[:error] = "You must be logged in to create a new recipe"
+      redirect "/"
+    end
   end
 
   # save user input for number of ingredients to pass when rendering recipes/new
@@ -54,19 +64,29 @@ class RecipesController < ApplicationController
 
   # GET: /recipes/5
   get "/recipes/:slug" do
-    @recipe = Recipe.find_by_slug(params[:slug])
-    erb :"/recipes/show"
+    if logged_in?
+      @recipe = Recipe.find_by_slug(params[:slug])
+      erb :"/recipes/show"
+    else
+      flash[:error] = "You must be logged in to view a recipe"
+      redirect "/"
+    end
   end
 
   # GET: /recipes/5/edit
   get "/recipes/:slug/edit" do
-    @recipe = Recipe.find_by_slug(params[:slug])
+    if logged_in?
+      @recipe = Recipe.find_by_slug(params[:slug])
 
-    if authorized_to_edit?(@recipe)
-      erb :"/recipes/edit"
+      if authorized_to_edit?(@recipe)
+        erb :"/recipes/edit"
+      else
+        flash[:error] = "Not yours to edit!"
+        redirect "/recipes"
+      end
     else
-      flash[:error] = "Not yours to edit!"
-      redirect "/recipes"
+      flash[:error] = "You must be logged in to edit a recipe"
+      redirect "/"
     end
   end
 
