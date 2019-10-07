@@ -111,7 +111,7 @@ The application we build in the project build is an "Artist Portfolio App". **Us
   - Include a short description, install instructions, a contributors guide and a link to the license for your code
 
 ### Bonus
-- [ ] Leverage a CSS framework to improve the styling of your application
+- [x] Leverage a CSS framework to improve the styling of your application
   - Easiest to implement: [Bulma](https://bulma.io/)
   - Most popular: [Bootstrap](https://getbootstrap.com/)
   - Also good: [Semantic UI](https://semantic-ui.com/)
