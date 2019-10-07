@@ -18,20 +18,22 @@
   </head>
   <body>
     <% if logged_in? %>
-      <div class="topnav">
-        <ul>
-          <li style="float:left"><a href="/recipes">Recipe Box</a></li>
-          <li>
-            <form class="search-box" method="get" action="/search">
-              <input class="search-txt" type="text" name="search" placeholder="Type to search">
-              <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-            </form>
-          </li>
-          <li style="float:right"><a href="/logout">Log Out</a></li>
-          <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
-          <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
-        </ul>
-      </div>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="topnav">
+          <ul>
+            <li style="float:left"><a href="/recipes">Recipe Box</a></li>
+            <li>
+              <form class="search-box" method="get" action="/search">
+                <input class="search-txt" type="text" name="search" placeholder="Type to search">
+                <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+              </form>
+            </li>
+            <li style="float:right"><a href="/logout">Log Out</a></li>
+            <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
+            <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
+          </ul>
+        </div>
+      </nav>
     <% end %>
 
     <div class="wrapper">
