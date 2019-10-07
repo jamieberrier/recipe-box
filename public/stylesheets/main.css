@@ -98,7 +98,7 @@
     border-top: 2px dashed #ccc;
   }
 
-  .search-box {
+  /*.search-box {
     position: absolute;
     top: 15%;
     left: 30%;
@@ -143,7 +143,7 @@
   .search-box:hover > .search-btn {
     background: white;
     color: black;
-  }
+  }*/
 
   /* Add a black background color to the top navigation */
   .topnav {
