@@ -2,7 +2,7 @@
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="has-navbar-fixed-top" class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
   <head>
     <meta charset="utf-8" />
 
@@ -18,38 +18,20 @@
   </head>
   <body>
     <% if logged_in? %>
-      <nav class="navbar is-fixed-top is-dark" role="navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/recipes">Recipe Box</a>
-
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item is-tab">
-              <div class="field has-addons">
-                <form class="" method="get" action="/search">
-                  <div class="control">
-                    <input class="input" type="text" placeholder="Type to search">
-                  </div>
-                  <div class="control">
-                    <a class="button" type="submit"><i class="fas fa-search"></i></a>
-                  </div>
-                </form>
-              </div>
-            </a>
-          </div>
-          <div class="navbar-end">
-            <a class="navbar-item is-tab" href="/recipes/new">New Recipe</a>
-            <a class="navbar-item is-tab" href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a>
-            <a class="navbar-item is-tab" href="/logout">Log Out</a>
-          </div>
-        </div>
-      </nav>
+      <div class="topnav">
+        <ul>
+          <li style="float:left"><a href="/recipes">Recipe Box</a></li>
+          <li>
+            <form class="search-box" method="get" action="/search">
+              <input class="search-txt" type="text" name="search" placeholder="Type to search">
+              <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+          </li>
+          <li style="float:right"><a href="/logout">Log Out</a></li>
+          <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
+          <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
+        </ul>
+      </div>
     <% end %>
 
     <div class="wrapper">
