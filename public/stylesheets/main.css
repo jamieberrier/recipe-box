@@ -176,6 +176,10 @@
     color: white;
   }
 
+  #navbar a.menu-icon {
+    display: none;
+  }
+
   /* Change the link color to #FFDAB9 (peachpuff) on hover */
   li a:hover {
     background-color: #FFDAB9;
@@ -273,6 +277,10 @@
     color:#B94A48;
     border:1px solid #EED3D7;
   }
+
+  #navbar a.menu-icon {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 648px) {
@@ -305,9 +313,33 @@
     color:#B94A48;
     border:1px solid #EED3D7;
   }
+
+  .search-box:hover > .search-txt {
+    width: 100px;
+    padding: 0 6px;
+  }
 }
 
 @media screen and (max-width: 600px) {
+  #navbar a { display: none; }
+
+  #navbar a.menu-icon {
+    display: block;
+    float: right;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    width: auto;
+  }
+
+  .search-box:hover > .search-txt {
+    width: 120px;
+    padding: 0 6px;
+  }
+
+  #navbar a.menu-icon:hover {
+
+  }
+
   /*.wrapper {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
