@@ -188,7 +188,7 @@
   /*display: inline-flex;
   border: 2px dashed #ccc;*/
 
-  /* Ingredients */
+  /* Edit Form - Ingredients */
   fieldset {
     display: inline-block;
     margin-left: 2px;
@@ -199,7 +199,7 @@
     padding-right: 0.75em;
     /*border: 2px groove;*/
   }
-
+  /* Edit Form - Recipe Course */
   .course_table {
     border-top: 2px groove;
     margin-left: 2px;
