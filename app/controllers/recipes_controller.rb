@@ -32,18 +32,15 @@ class RecipesController < ApplicationController
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
-      count = 0
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
           i = Ingredient.find_by(name: ingredient[:name])
           if i.nil? # create ingredient
-            @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
-            @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+            @recipe.ingredients << Ingredient.create(name: ingredient[:name])
           else
             @recipe.ingredients << i
-            @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
           end
-          count += 1
+          @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
       flash[:success] = "Successfully created recipe!"
@@ -104,26 +101,28 @@ class RecipesController < ApplicationController
   patch "/recipes/:slug" do
     @recipe = Recipe.find_by_slug(params[:slug])
 
-    if @recipe.update(name: params[:recipe][:name], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url], course: params[:recipe][:course])
-      count = 0
-      params[:recipe][:ingredients].each do |ingredient|
-        if !ingredient[:name].blank?
-          @recipe.ingredients[count].update(name: ingredient[:name], food_group: ingredient[:food_group])
-          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
-          count += 1
-        elsif ingredient[:name].blank?
-          @recipe.recipe_ingredients[count].delete
+    if @recipe.update(params[:recipe])
+      params[:ingredients].each.with_index do |ingredient, index|
+        if ingredient[:name].blank?
+          @recipe.recipe_ingredients[index].delete
+        else
+          @recipe.ingredients[index].update(name: ingredient[:name])
+          @recipe.recipe_ingredients[index].update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
       # New Ingredients added
-      params[:recipe][:new_ingredients].each do |ingredient|
-        if !ingredient[:name].blank?
-          @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
-          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
-          count += 1
+      params[:new_ingredients].each do |new_ingredient|
+        if !new_ingredient[:name].blank?
+          i = Ingredient.find_by(name: new_ingredient[:name])
+          if i.nil? # create ingredient
+            @recipe.ingredients << Ingredient.create(name: new_ingredient[:name])
+          else # add ingredient
+            @recipe.ingredients << i
+          end
+          # update ingredient amount
+          @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
         end
       end
-
       flash[:success] = "Recipe successfully updated!"
       redirect "/recipes/#{@recipe.slug}"
     else
