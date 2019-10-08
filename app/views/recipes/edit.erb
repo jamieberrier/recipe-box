@@ -46,9 +46,9 @@
     <% i = Ingredient.find_by(id: ingredient.ingredient_id) %>
     <fieldset>
       <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[ingredients][][name]" value="<%= i.name %>" size="30">
+      <input id="ingredient_name" type="text" name="ingredients[][name]" value="<%= i.name %>" size="30">
       <label for="ingredient_amount">Amount:</label>
-      <input id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
+      <input id="ingredient_amount" type="text" name="ingredients[][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
       <br>
     </fieldset>
   <% end %>
@@ -57,9 +57,9 @@
   <% 5.times do %>
     <fieldset>
       <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="recipe[new_ingredients][][name]" size="30">
+      <input id="ingredient_name" type="text" name="new_ingredients[][name]" size="30">
       <label for="ingredient_amount">Amount:</label>
-      <input id="ingredient_amount" type="text" name="recipe[new_ingredients][][ingredient_amount]">
+      <input id="ingredient_amount" type="text" name="new_ingredients[][ingredient_amount]">
       <br>
     </fieldset>
   <% end %>
