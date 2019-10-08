@@ -10,72 +10,25 @@
   <br>
   <!-- make drop down menu? -->
   <div class="field">
-    <h4><label class="label">Recipe Course</label></h4>
+    <h4><label>Recipe Course</label></h4>
     <div class="control">
-      <table class="table is-fullwidth">
-        <tbody>
-          <tr>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Hors d'oeuvres
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Amuse-Bouche
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Soup
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Appetizer
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Salad
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Entree
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Side
-              </label>
-            </td>
-            <td>
-              <label class="radio">
-                <input type="radio" name="recipe[course]">
-                Dessert
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
+      <table class="course_table" style="width:100%">
+        <tr>
+          <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
+          <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
+          <td><input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input></td>
+          <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input></td>
+        </tr>
+        <tr>
+          <td><input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input></td>
+          <td><input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input></td>
+          <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
+          <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
+        </tr>
       </table>
     </div>
   </div>
+  <br>
 
   <div class="field">
     <h4><label class="label" for="description">Recipe Description</label></h4>
