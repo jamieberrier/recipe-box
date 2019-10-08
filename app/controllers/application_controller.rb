@@ -21,22 +21,6 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    def login
-      @user = User.find_by(email: params[:user][:email])
-
-      if @user && @user.authenticate(params[:user][:password])
-	       session[:user_id] = @user.id
-         flash[:info] = "Welcome #{@user.display_name}!"
-         redirect "/users/#{@user.slug}"
-      elsif !@user
-        flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
-        redirect "/login"
-      else @user && !@user.authenticate(params[:user][:password])
-        flash[:error] = "Incorrect password"
-        redirect "/login"
-      end
-    end
-
     def current_user
       # if @current_user is assigned, don't evaluate
       @current_user ||= User.find_by(id: session[:user_id])
@@ -50,22 +34,8 @@ class ApplicationController < Sinatra::Base
       current_user == recipe.user
     end
 
-    def logout!
-      session.clear
-      flash[:info] = "You are logged out!"
+    def homepage
       redirect "/"
-    end
-
-    def delete_recipe!
-      @recipe = Recipe.find_by_slug(params[:slug])
-      if logged_in? && current_user.id == @recipe.user_id
-        @recipe.destroy
-        flash[:success] = "Recipe deleted."
-        redirect "/users/#{@recipe.user.slug}"
-      else
-        flash[:error] = "Not yours to delete!"
-        redirect "/recipes"
-      end
     end
   end # end of helpers
 end

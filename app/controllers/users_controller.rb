@@ -48,20 +48,30 @@ class UsersController < ApplicationController
   # GET: /users/5
   #! use slug instead of id
   get "/users/:slug" do
-    @user = User.find_by_slug(params[:slug])
-    erb :"/users/show"
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      erb :"/users/show"
+    else
+      flash[:error] = "Must be logged in to view a user's recipes"
+      homepage
+    end
   end
 
   # GET: /users/5/edit
   # If user wants to edit their profile
   get "/users/:slug/edit" do
-    @user = User.find_by_slug(params[:slug])
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
 
-    if logged_in? && @user == current_user
-      erb :"/users/edit"
+      if @user == current_user
+        erb :"/users/edit"
+      else
+        flash[:error] = "Not yours to edit!"
+        homepage
+      end
     else
-      flash[:error] = "Not yours to edit!"
-      redirect "/recipes"
+      flash[:error] = "Must be logged in!"
+      homepage
     end
   end
 
@@ -97,15 +107,37 @@ class UsersController < ApplicationController
   end
 
   helpers do
+    def login
+      @user = User.find_by(email: params[:user][:email])
+
+      if @user && @user.authenticate(params[:user][:password])
+	       session[:user_id] = @user.id
+         flash[:info] = "Welcome #{@user.display_name}!"
+         redirect "/users/#{@user.slug}"
+      elsif !@user
+        flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
+        redirect "/login"
+      else @user && !@user.authenticate(params[:user][:password])
+        flash[:error] = "Incorrect password"
+        redirect "/login"
+      end
+    end
+
+    def logout!
+      session.clear
+      flash[:info] = "You are logged out!"
+      homepage
+    end
+
     def delete_user!
       @user = User.find_by_slug(params[:slug])
       if logged_in? && current_user == @user
         @user.destroy
         flash[:success] = "User profile deleted."
-        redirect "/"
+        homepage
       else
         flash[:error] = "Not yours to delete!"
-        redirect "/users/#{@user.slug}"
+        homepage
       end
     end
   end # end helpers

@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
       erb :"/recipes/index"
     else
       flash[:error] = "You must be logged in to view recipes"
-      redirect "/"
+      homepage
     end
   end
 
@@ -18,7 +18,7 @@ class RecipesController < ApplicationController
       erb :"/recipes/number_of_ingredients"
     else
       flash[:error] = "You must be logged in to create a new recipe"
-      redirect "/"
+      homepage
     end
   end
 
@@ -49,17 +49,21 @@ class RecipesController < ApplicationController
   end
 
   get "/search" do
-    @recipes = Recipe.search(params[:search])
+    if logged_in?
+      @recipes = Recipe.search(params[:search])
 
-    Recipe.all.each do |recipe|
-      if !@recipes.ids.include?(recipe.id)
-        recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
-          @recipes << recipe
+      Recipe.all.each do |recipe|
+        if !@recipes.ids.include?(recipe.id)
+          recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
+            @recipes << recipe
+          end
         end
       end
+      erb :"/recipes/results"
+    else
+      flash[:error] = "Must be logged in to search!"
+      homepage
     end
-
-    erb :"/recipes/results"
   end
 
   # GET: /recipes/5
@@ -69,7 +73,7 @@ class RecipesController < ApplicationController
       erb :"/recipes/show"
     else
       flash[:error] = "You must be logged in to view a recipe"
-      redirect "/"
+      homepage
     end
   end
 
@@ -86,7 +90,7 @@ class RecipesController < ApplicationController
       end
     else
       flash[:error] = "You must be logged in to edit a recipe"
-      redirect "/"
+      homepage
     end
   end
 
@@ -130,5 +134,24 @@ class RecipesController < ApplicationController
   # if a user tries to delete another user's recipe via URL
   get "/recipes/:slug/delete" do
     delete_recipe!
+  end
+
+  helpers do
+    def delete_recipe!
+      if logged_in?
+        @recipe = Recipe.find_by_slug(params[:slug])
+        if current_user.id == @recipe.user_id
+          @recipe.destroy
+          flash[:success] = "Recipe deleted."
+          redirect "/users/#{@recipe.user.slug}"
+        else
+          flash[:error] = "Not yours to delete!"
+          redirect "/recipes"
+        end
+      else
+        flash[:error] = "Must be logged in to delete!"
+        homepage
+      end
+    end
   end
 end
