@@ -35,8 +35,14 @@ class RecipesController < ApplicationController
       count = 0
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
-          @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
-          @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          i = Ingredient.find_by(name: ingredient[:name])
+          if i.nil? # create ingredient
+            @recipe.ingredients << Ingredient.create(name: ingredient[:name], food_group: ingredient[:food_group])
+            @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          else
+            @recipe.ingredients << i
+            @recipe.recipe_ingredients[count].update(ingredient_amount: ingredient[:ingredient_amount])
+          end
           count += 1
         end
       end
