@@ -28,7 +28,6 @@
       </table>
     </div>
   </div>
-  <br>
 
   <div class="field">
     <h4><label class="label" for="description">Recipe Description</label></h4>
@@ -66,7 +65,7 @@
   </div>
   <div class="field is-grouped is-grouped-centered">
     <div class="control">
-      <table class="table is-fullwidth">
+      <table class="table">
         <% @num.times do %>
           <tr>
             <td>
@@ -77,13 +76,12 @@
               <label for="ingredient_amount">Amount </label>
               <input class="input is-small" id="ingredient_amount" type="text" name="recipe[ingredients][][ingredient_amount]">
             </td>
-        </tr>
+          </tr>
         <% end %>
       </table>
     </div>
   </div>
 
-  <!-- Button to add another ingredient? -->
   <div class="field">
     <label class="label" for="instructions"><h2>Instructions</h2></label>
     <div class="control">
