@@ -26,7 +26,6 @@ class UsersController < ApplicationController
         redirect "/signup"
       end
     end
-
   end
 
   get "/login" do
@@ -84,12 +83,9 @@ class UsersController < ApplicationController
       # only update password if params[:new_password] is not blank
       if !params[:user][:new_password].blank?
         @user.update(password: params[:user][:new_password])
-        flash[:success] = "Profile successfully updated!"
-        redirect "/users/#{@user.slug}"
-      else
-        flash[:success] = "Profile successfully updated!"
-        redirect "/users/#{@user.slug}"
       end
+      flash[:success] = "Profile successfully updated!"
+      redirect "/users/#{@user.slug}"
     else
       flash[:error] = "Edit failure: #{@user.errors.full_messages.to_sentence}"
       redirect "/users/#{@user.slug}/edit"
