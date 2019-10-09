@@ -1,75 +1,119 @@
 <br><h2>Edit <%= @recipe.name %></h2>
-<center>
+
   <form action="/recipes/<%= @recipe.slug %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
+    <div class="field">
+      <h4><label class="label" for="name">Recipe Name</label></h4>
+      <div class="control">
+        <input class="input is-small" id="name" type="text" name="recipe[name]" value="<%= @recipe.name %>">
+      </div>
+    </div>
+    <br>
+    <div class="field">
+      <h4><label>Recipe Course</label></h4>
+      <div class="control">
+        <table class="course_table" style="width:100%">
+          <tr>
+            <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres" <%='checked' if @recipe.course == "Hors d'oeuvres" %>> Hors d'oeuvres</input></td>
+            <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche" <%='checked' if @recipe.course == "Amuse-Bouche" %>> Amuse-Bouche</input></td>
+            <td><input type="radio" name="recipe[course]" id="Soup" value="Soup" <%='checked' if @recipe.course == "Soup" %>> Soup</input></td>
+            <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer" <%='checked' if @recipe.course == "Appetizer" %>> Appetizer</input></td>
+          </tr>
+          <tr>
+            <td><input type="radio" name="recipe[course]" id="Salad" value="Salad" <%='checked' if @recipe.course == "Salad" %>> Salad</input></td>
+            <td><input type="radio" name="recipe[course]" id="Entree" value="Entree" <%='checked' if @recipe.course == "Entree" %>> Entree</input></td>
+            <td><input type="radio" name="recipe[course]" id="Side" value="Side" <%='checked' if @recipe.course == "Side" %>> Side</input></td>
+            <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert" <%='checked' if @recipe.course == "Dessert" %>> Dessert</input></td>
+          </tr>
+      </table>
+    </div>
+  </div>
 
-  <h4><label for="name">Recipe Name</label></h4>
-  <input id="name" type="text" name="recipe[name]" value="<%= @recipe.name %>" size="60">
-  <br><br>
-
-  <h4><label>Recipe Course</label></h4>
-  <table class="course_table" style="width:100%">
-    <tr>
-      <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres" <%='checked' if @recipe.course == "Hors d'oeuvres" %>> Hors d'oeuvres</input></td>
-      <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche" <%='checked' if @recipe.course == "Amuse-Bouche" %>> Amuse-Bouche</input></td>
-      <td><input type="radio" name="recipe[course]" id="Soup" value="Soup" <%='checked' if @recipe.course == "Soup" %>> Soup</input></td>
-      <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer" <%='checked' if @recipe.course == "Appetizer" %>> Appetizer</input></td>
-    </tr>
-    <tr>
-      <td><input type="radio" name="recipe[course]" id="Salad" value="Salad" <%='checked' if @recipe.course == "Salad" %>> Salad</input></td>
-      <td><input type="radio" name="recipe[course]" id="Entree" value="Entree" <%='checked' if @recipe.course == "Entree" %>> Entree</input></td>
-      <td><input type="radio" name="recipe[course]" id="Side" value="Side" <%='checked' if @recipe.course == "Side" %>> Side</input></td>
-      <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert" <%='checked' if @recipe.course == "Dessert" %>> Dessert</input></td>
-    </tr>
-  </table>
+  <div class="field">
+    <h4><label class="label" for="description">Recipe Description</label></h4>
+    <div class="control">
+      <textarea class="textarea" id="description" name="recipe[description]"><%= @recipe.description %></textarea>
+    </div>
+  </div>
   <br>
+  <div class="field">
+    <h4><label class="label" for="image_url">Recipe Image URL</label></h4>
+    <div class="control">
+      <input class="input is-small" id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" size="50">
+    </div>
+  </div>
 
-  <h4><label for="description">Recipe Description</label></h4>
-  <textarea class="textarea" id="description" name="recipe[description]"><%= @recipe.description %></textarea>
-  <br><br>
-  <h4><label for="image_url">Recipe Image URL</label></h4>
-  <input id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" size="50">
-  <br><br>
-  <table class="table">
-    <tr>
-      <th><h4>Total Time</h4></th>
-      <th><h4>Cook Time</h4></th>
-    </tr>
-    <tr>
-      <td><input id="total_time" type="text" name="recipe[total_time]" value="<%= @recipe.total_time %>"></td>
-      <td><input id="cook_time" type="text" name="recipe[cook_time]" value="<%= @recipe.cook_time %>"></td>
-    </tr>
-  </table>
-
-  <h2>Current Ingredients</h2>
-  <% @recipe.recipe_ingredients.each do |ingredient| %>
-    <% i = Ingredient.find_by(id: ingredient.ingredient_id) %>
-    <fieldset>
-      <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="ingredients[][name]" value="<%= i.name %>" size="30">
-      <label for="ingredient_amount">Amount:</label>
-      <input id="ingredient_amount" type="text" name="ingredients[][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
-      <br>
-    </fieldset>
-  <% end %>
-  <br>
-  <h2>Add Ingredients</h2>
-  <% 5.times do %>
-    <fieldset>
-      <label for="ingredient_name">Name:</label>
-      <input id="ingredient_name" type="text" name="new_ingredients[][name]" size="30">
-      <label for="ingredient_amount">Amount:</label>
-      <input id="ingredient_amount" type="text" name="new_ingredients[][ingredient_amount]">
-      <br>
-    </fieldset>
-  <% end %>
-  <br><br>
-  <h2><label for="instructions">Instructions</label></h2>
-  <textarea class="textarea" id="instructions" name="recipe[instructions]"><%= @recipe.instructions %></textarea>
-  <br><br>
-  <input class="button is-success is-small is-fullwidth" type="submit" value="Update Recipe">
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <table class="table">
+        <tr>
+          <th><h4>Total Time</h4></th>
+          <th><h4>Cook Time</h4></th>
+        </tr>
+        <tr>
+          <td><input class="input is-small" id="total_time" type="text" name="recipe[total_time]" value="<%= @recipe.total_time %>"></td>
+          <td><input class="input is-small" id="cook_time" type="text" name="recipe[cook_time]" value="<%= @recipe.cook_time %>"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label"><h2>Current Ingredients</h2></label>
+  </div>
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <table class="table">
+        <% @recipe.recipe_ingredients.each do |ingredient| %>
+          <% i = Ingredient.find_by(id: ingredient.ingredient_id) %>
+          <tr>
+            <td>
+              <label for="ingredient_name">Name</label>
+              <input class="input is-small" id="ingredient_name" type="text" name="ingredients[][name]" value="<%= i.name %>">
+            </td>
+            <td>
+              <label for="ingredient_amount">Amount</label>
+              <input class="input is-small" id="ingredient_amount" type="text" name="ingredients[][ingredient_amount]" value="<%= ingredient.ingredient_amount %>">
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label"><h2>Add Ingredients</h2></label>
+  </div>
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <table class="table">
+        <% 5.times do %>
+          <tr>
+            <td>
+              <label for="ingredient_name">Name</label>
+              <input class="input is-small" id="ingredient_name" type="text" name="new_ingredients[][name]">
+            </td>
+            <td>
+              <label for="ingredient_amount">Amount</label>
+              <input class="input is-small" id="ingredient_amount" type="text" name="new_ingredients[][ingredient_amount]">
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <!-- Button to add another ingredient? -->
+  <div class="field">
+    <label class="label" for="instructions"><h2>Instructions</h2></label>
+    <div class="control">
+      <textarea class="textarea" id="instructions" name="recipe[instructions]"><%= @recipe.instructions %></textarea>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input class="button is-success is-small is-fullwidth" type="submit" value="Update Recipe">
+    </div>
+  </div>
 </form>
-<br>
+<p></p>
 <form>
-  <button class="button is-info is-small is-fullwidth" type="submit" formaction="/recipes/<%= @recipe.slug %>"> Cancel </button>
+  <button class="button is-info is-small is-fullwidth" type="submit" formaction="/recipes/<%= @recipe.slug %>">Cancel</button>
 </form>
