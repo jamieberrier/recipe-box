@@ -28,12 +28,9 @@
                 <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
               </form>
             </li>
-            <div id="navbar">
-              <li style="float:right"><a href="/logout">Log Out</a></li>
-              <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
-              <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
-              <a class="menu-icon">&#9776;</a>
-            </div>
+            <li style="float:right"><a href="/logout">Log Out</a></li>
+            <li style="float:right"><a href="/recipes/new">New Recipe</a></li>
+            <li style="float:right"><a href="/users/<%= current_user.slug %>"><%= current_user.display_name %>'s Recipes</a></li>
           </ul>
         </div>
       </nav>
