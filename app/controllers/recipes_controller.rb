@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
   # GET: /recipes
   get "/recipes" do
     if logged_in?
-      @recipes = Recipe.all
+      @recipes = Recipe.order(:name)
       erb :"/recipes/index"
     else
       flash[:error] = "You must be logged in to view recipes"
