@@ -5,7 +5,7 @@ A web application designed for users to
 
 ## Installation & Setup
 
-* Fork and clone the Recipe Box repo onto your computer.
+* Clone the Recipe Box repo onto your computer.
 * In your terminal, cd to the `recipe-box` folder.
 * Run `bundle install` to load the Ruby gems and dependencies.
 * _This web application has seed data added._
