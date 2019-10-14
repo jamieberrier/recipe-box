@@ -1,3 +1,4 @@
+![alt](https://images-na.ssl-images-amazon.com/images/I/517JH27dI5L.jpg)
 # Recipe Box - Sinatra App
 
 A web application designed for users to build their own recipe collections.  
