@@ -1,6 +1,6 @@
 # Recipe Box - Sinatra App
 
-A web application designed for users to
+A web application designed for users to build their own recipe collections. Users can create, edit, and delete recipes and view other user’s recipes.
 
 
 ## Installation & Setup
