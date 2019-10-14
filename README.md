@@ -8,6 +8,7 @@ A web application designed for users to
 * Clone the Recipe Box repo onto your computer.
   * Go to https://github.com/jamieberrier/recipe-box
   * Click **Clone or download** button
+  * click ![alt]<%= octicon "clippy" %>
   * Type `git clone`, and then paste the copied URL in your terminal.
 * Change the current working directory
   * Type `cd recipe-box`
