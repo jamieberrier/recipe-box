@@ -15,10 +15,10 @@ A web application designed for users to
 
 ## Usage
 
-* Run the Recipe Box web application on your local machine by typing `shotgun` in your terminal.
-* Open your browser and navigate to http://127.0.0.1:9393.
-* Once the welcome page loads, you can create a new user account and login...or use the seed data.
-* _To exit and stop the shotgun session, type `CTRL + C`._
+* Type `shotgun` in your terminal to run the Recipe Box web application on your local machine
+* Open your browser and navigate to http://127.0.0.1:9393
+* Once the welcome page loads, you can create a new user account and login...or use the seed data
+* _To exit and stop the shotgun session, type `CTRL + C`_
 
 ## Contributing
 
