@@ -8,7 +8,7 @@ A web application designed for users to
 * Fork and clone the Recipe Box repo onto your computer.
 * In your terminal, cd to the recipe-box folder.
 * Run `bundle install` to load the Ruby gems and dependencies.  \
-_This web application has seed data added, be sure to run rake db:migrate and rake db:seed if you would like to test with the provided seed data. Data can be found in the db folder (seeds.rb)._
+_This web application has seed data added. To test with the provided seed data, run `rake db:migrate` and `rake db:seed`. Seed data is located in the db folder (seeds.rb)._
 
 ## Usage
 
