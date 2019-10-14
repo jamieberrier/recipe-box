@@ -1,5 +1,5 @@
-require 'sysrandom/securerandom'
-ENV['SESSION_SECRET'] = "shotgun will not let me" #SecureRandom.hex(64)
+require 'sysrandom'
+ENV['SESSION_SECRET'] = "shotgun will not let me set a random secret" #SecureRandom.hex(64)
 
 ENV['SINATRA_ENV'] ||= "development"
 
