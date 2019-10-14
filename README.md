@@ -5,13 +5,12 @@ A web application designed for users to
 
 ## Installation & Setup
 
-* Clone the Recipe Box repo onto your computer.
+* Clone the Recipe Box repo onto your computer
   * Go to https://github.com/jamieberrier/recipe-box
   * Click **Clone or download** button
   * Click **clipboard icon** (clone with HTTPS)
   * In your terminal, type `git clone`, and then paste the copied URL.
-* Change the current working directory
-  * Type `cd recipe-box`
+* Type `cd recipe-box` to change the current working directory
 * Run `bundle install` to load the Ruby gems and dependencies.
 * _This web application has seed data added._
   - _Run `rake db:migrate` and `rake db:seed` to test with the provided seed data (`db/seeds.rb`)._
