@@ -1,4 +1,4 @@
-![recipe_box](https://images-na.ssl-images-amazon.com/images/I/517JH27dI5L.jpg =100x200)
+<img src="https://images-na.ssl-images-amazon.com/images/I/517JH27dI5L.jpg" width="200" height="200">
 # Recipe Box - Sinatra App
 
 A web application designed for users to build their own recipe collections.  
