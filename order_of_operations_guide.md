@@ -105,9 +105,9 @@ The application we build in the project build is an "Artist Portfolio App". **Us
   - Make sure a user can't create a new post without being logged in.
 - [x] 23. Implement authorization to edit and delete.
   - Make sure a user can't edit or delete a post that doesn't belong to them.
-- [ ] 24. Refactor your code to make it more DRY!
+- [x] 24. Refactor your code to make it more DRY!
   - **Ask**: Where am I repeating myself?
-- [ ] 25. Create a `README.md`
+- [x] 25. Create a `README.md`
   - Include a short description, install instructions, a contributors guide and a link to the license for your code
 
 ### Bonus
@@ -118,7 +118,7 @@ The application we build in the project build is an "Artist Portfolio App". **Us
   - Not bootstrap: [Materialize](https://materializecss.com/)
 
 ### Confirm
-- [ ] You have a large number of small Git commits
-- [ ] Your commit messages are meaningful
-- [ ] You made the changes in a commit that relate to the commit message
-- [ ] You don't include changes in a commit that aren't related to the commit message
+- [x] You have a large number of small Git commits
+- [x] Your commit messages are meaningful
+- [x] You made the changes in a commit that relate to the commit message
+- [x] You don't include changes in a commit that aren't related to the commit message
