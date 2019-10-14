@@ -11,9 +11,9 @@ A web application designed for users to
   * Click **clipboard icon** (clone with HTTPS)
   * In your terminal, type `git clone` and then paste the copied URL.
 * Type `cd recipe-box` to change the current working directory
-* Run `bundle install` to load the Ruby gems and dependencies.
-* _This web application has seed data added._
-  - _Run `rake db:migrate` and `rake db:seed` to test with the provided seed data (`db/seeds.rb`)._
+* Run `bundle install` to load the Ruby gems and dependencies
+* _This web application has seed data added_
+  - _Run `rake db:migrate` and `rake db:seed` to test with the provided seed data (`db/seeds.rb`)_
 
 ## Usage
 
