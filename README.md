@@ -9,7 +9,7 @@ A web application designed for users to
   * Go to https://github.com/jamieberrier/recipe-box
   * Click **Clone or download** button
   * Click **clipboard icon** (clone with HTTPS)
-  * Type `git clone`, and then paste the copied URL in your terminal.
+  * In your terminal, type `git clone`, and then paste the copied URL.
 * Change the current working directory
   * Type `cd recipe-box`
 * Run `bundle install` to load the Ruby gems and dependencies.
