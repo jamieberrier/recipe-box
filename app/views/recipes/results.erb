@@ -18,3 +18,8 @@
 <br><br>
   <p>There are no recipes containing <%= params[:search] %>.</p>
 <% end %>
+<div class="field">
+  <div class="control">
+    <button class="button is-info is-small is-fullwidth" onclick="window.location.href = '<%= request.referer %>';">Back</button>
+  </div>
+</div>
