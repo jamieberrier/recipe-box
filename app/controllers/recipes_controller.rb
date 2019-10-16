@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
 
-  # GET: /recipes
   get "/recipes" do
     if logged_in?
       @recipes = Recipe.order(:name)
@@ -11,7 +10,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # GET: /recipes/new
   # render view to get user input for number of ingredients to use when generating new recipe form
   get "/recipes/new" do
     if logged_in?
@@ -28,7 +26,6 @@ class RecipesController < ApplicationController
     erb :"/recipes/new"
   end
 
-  # POST: /recipes
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
@@ -75,7 +72,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # GET: /recipes/5
   get "/recipes/:slug" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -86,7 +82,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # GET: /recipes/5/edit
   get "/recipes/:slug/edit" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -103,7 +98,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH: /recipes/5
   patch "/recipes/:slug" do
     @recipe = Recipe.find_by_slug(params[:slug])
 
@@ -137,7 +131,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # DELETE: /recipes/5/delete
   delete "/recipes/:slug/delete" do
     delete_recipe!
   end

@@ -1,3 +1,4 @@
+# for future enhancements
 class IngredientsController < ApplicationController
 
   # GET: /ingredients

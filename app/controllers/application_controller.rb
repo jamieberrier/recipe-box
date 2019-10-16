@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-  # welcome page
+  # welcome/home page
   get "/" do
     if logged_in?
       redirect "/users/#{current_user.slug}"

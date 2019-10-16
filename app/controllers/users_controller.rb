@@ -9,7 +9,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # POST: /users
   post "/users" do
     @user = User.find_by(email: params[:user][:email])
     if @user
@@ -44,8 +43,6 @@ class UsersController < ApplicationController
     logout!
   end
 
-  # GET: /users/5
-  #! use slug instead of id
   get "/users/:slug" do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
@@ -56,7 +53,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET: /users/5/edit
   # If user wants to edit their profile
   get "/users/:slug/edit" do
     if logged_in?
@@ -74,7 +70,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH: /users/5
   # If user wants to edit their profile
   patch "/users/:slug" do
     @user = User.find_by_slug(params[:slug])
@@ -92,12 +87,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE: /users/5/delete
   # If user wants to delete their profile
   delete "/users/:slug/delete" do
     delete_user!
   end
 
+  # If a user tries to delete a user via URL
   get "/users/:slug/delete" do
     delete_user!
   end
