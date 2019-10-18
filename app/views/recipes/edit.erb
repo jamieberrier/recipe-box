@@ -32,14 +32,14 @@
   <div class="field">
     <h4><label class="label" for="description">Recipe Description</label></h4>
     <div class="control">
-      <textarea class="textarea" id="description" name="recipe[description]"><%= @recipe.description %></textarea>
+      <textarea class="textarea" id="description" name="recipe[description]" placeholder="optional"><%= @recipe.description %></textarea>
     </div>
   </div>
   <br>
   <div class="field">
     <h4><label class="label" for="image_url">Recipe Image URL</label></h4>
     <div class="control">
-      <input class="input is-small" id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" size="50">
+      <input class="input is-small" id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" placeholder="optional">
     </div>
   </div>
 
@@ -100,6 +100,7 @@
       </table>
     </div>
   </div>
+  <p class="help is-danger">More ingredients can be added by editing the recipe again.</p>
   <!-- Button to add another ingredient? -->
   <div class="field">
     <label class="label" for="instructions"><h2>Instructions</h2></label>
