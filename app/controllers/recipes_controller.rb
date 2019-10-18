@@ -132,25 +132,19 @@ class RecipesController < ApplicationController
   end
 
   delete "/recipes/:slug/delete" do
-    delete_recipe!
-  end
-
-  helpers do
-    def delete_recipe!
-      if logged_in?
-        @recipe = Recipe.find_by_slug(params[:slug])
-        if current_user.id == @recipe.user_id
-          @recipe.destroy
-          flash[:success] = "Recipe deleted."
-          redirect "/users/#{@recipe.user.slug}"
-        else
-          flash[:error] = "Not yours to delete!"
-          redirect "/recipes"
-        end
+    if logged_in?
+      @recipe = Recipe.find_by_slug(params[:slug])
+      if current_user.id == @recipe.user_id
+        @recipe.destroy
+        flash[:success] = "Recipe deleted."
+        redirect "/users/#{@recipe.user.slug}"
       else
-        flash[:error] = "Must be logged in to delete!"
-        homepage
+        flash[:error] = "Not yours to delete!"
+        redirect "/recipes"
       end
+    else
+      flash[:error] = "Must be logged in to delete!"
+      homepage
     end
   end
 end
