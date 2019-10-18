@@ -92,11 +92,6 @@ class UsersController < ApplicationController
     delete_user!
   end
 
-  # If a user tries to delete a user via URL
-  get "/users/:slug/delete" do
-    delete_user!
-  end
-
   helpers do
     def login
       @user = User.find_by(email: params[:user][:email])
