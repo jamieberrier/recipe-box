@@ -89,7 +89,15 @@ class UsersController < ApplicationController
 
   # If user wants to delete their profile
   delete "/users/:slug/delete" do
-    delete_user!
+    @user = User.find_by_slug(params[:slug])
+    if logged_in? && current_user == @user
+      @user.destroy
+      flash[:success] = "User profile deleted."
+      homepage
+    else
+      flash[:error] = "Not yours to delete!"
+      homepage
+    end
   end
 
   helpers do
@@ -113,18 +121,6 @@ class UsersController < ApplicationController
       session.clear
       flash[:info] = "You are logged out!"
       homepage
-    end
-
-    def delete_user!
-      @user = User.find_by_slug(params[:slug])
-      if logged_in? && current_user == @user
-        @user.destroy
-        flash[:success] = "User profile deleted."
-        homepage
-      else
-        flash[:error] = "Not yours to delete!"
-        homepage
-      end
     end
   end # end helpers
 end
