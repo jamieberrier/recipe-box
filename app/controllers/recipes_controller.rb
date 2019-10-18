@@ -135,11 +135,6 @@ class RecipesController < ApplicationController
     delete_recipe!
   end
 
-  # if a user tries to delete another user's recipe via URL
-  get "/recipes/:slug/delete" do
-    delete_recipe!
-  end
-
   helpers do
     def delete_recipe!
       if logged_in?
