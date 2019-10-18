@@ -36,11 +36,25 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    login
+    @user = User.find_by(email: params[:user][:email])
+
+    if @user && @user.authenticate(params[:user][:password])
+       session[:user_id] = @user.id
+       flash[:info] = "Welcome #{@user.display_name}!"
+       redirect "/users/#{@user.slug}"
+    elsif !@user
+      flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
+      redirect "/login"
+    else @user && !@user.authenticate(params[:user][:password])
+      flash[:error] = "Incorrect password"
+      redirect "/login"
+    end
   end
 
   get "/logout" do
-    logout!
+    session.clear
+    flash[:info] = "You are logged out!"
+    homepage
   end
 
   get "/users/:slug" do
@@ -99,28 +113,4 @@ class UsersController < ApplicationController
       homepage
     end
   end
-
-  helpers do
-    def login
-      @user = User.find_by(email: params[:user][:email])
-
-      if @user && @user.authenticate(params[:user][:password])
-	       session[:user_id] = @user.id
-         flash[:info] = "Welcome #{@user.display_name}!"
-         redirect "/users/#{@user.slug}"
-      elsif !@user
-        flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
-        redirect "/login"
-      else @user && !@user.authenticate(params[:user][:password])
-        flash[:error] = "Incorrect password"
-        redirect "/login"
-      end
-    end
-
-    def logout!
-      session.clear
-      flash[:info] = "You are logged out!"
-      homepage
-    end
-  end # end helpers
 end
