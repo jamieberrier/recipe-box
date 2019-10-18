@@ -10,22 +10,23 @@ class RecipesController < ApplicationController
     end
   end
 
-  # render view to get user input for number of ingredients to use when generating new recipe form
+  # render new recipe form
   get "/recipes/new" do
     if logged_in?
-      erb :"/recipes/number_of_ingredients"
+      erb :"/recipes/new"
+      #erb :"/recipes/number_of_ingredients"
     else
       flash[:error] = "You must be logged in to create a new recipe"
       homepage
     end
   end
-
+=begin
   # save user input for number of ingredients to pass when rendering recipes/new
   post "/recipes/new" do
     @num = params[:num].to_i
     erb :"/recipes/new"
   end
-
+=end
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
@@ -99,35 +100,45 @@ class RecipesController < ApplicationController
   end
 
   patch "/recipes/:slug" do
-    @recipe = Recipe.find_by_slug(params[:slug])
+    if logged_in?
+      @recipe = Recipe.find_by_slug(params[:slug])
 
-    if @recipe.update(params[:recipe])
-      params[:ingredients].each.with_index do |ingredient, index|
-        if ingredient[:name].blank?
-          @recipe.recipe_ingredients[index].delete
-        else
-          @recipe.ingredients[index].update(name: ingredient[:name])
-          @recipe.recipe_ingredients[index].update(ingredient_amount: ingredient[:ingredient_amount])
-        end
-      end
-      # New Ingredients added
-      params[:new_ingredients].each do |new_ingredient|
-        if !new_ingredient[:name].blank?
-          i = Ingredient.find_by(name: new_ingredient[:name])
-          if i.nil? # create ingredient
-            @recipe.ingredients << Ingredient.create(name: new_ingredient[:name])
-          else # add ingredient
-            @recipe.ingredients << i
+      if authorized_to_edit?(@recipe)
+        if @recipe.update(params[:recipe])
+          params[:ingredients].each.with_index do |ingredient, index|
+            if ingredient[:name].blank?
+              @recipe.recipe_ingredients[index].delete
+            else
+              @recipe.ingredients[index].update(name: ingredient[:name])
+              @recipe.recipe_ingredients[index].update(ingredient_amount: ingredient[:ingredient_amount])
+            end
           end
-          # update ingredient amount
-          @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
+          # New Ingredients added
+          params[:new_ingredients].each do |new_ingredient|
+            if !new_ingredient[:name].blank?
+              i = Ingredient.find_by(name: new_ingredient[:name])
+              if i.nil? # create ingredient
+                @recipe.ingredients << Ingredient.create(name: new_ingredient[:name])
+              else # add ingredient
+                @recipe.ingredients << i
+              end
+              # update ingredient amount
+              @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
+            end
+          end # end add new ingredients
+          flash[:success] = "Recipe successfully updated!"
+          redirect "/recipes/#{@recipe.slug}"
+        else
+          flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
+          redirect "/recipes/#{@recipe.slug}/edit"
         end
+      else
+        flash[:error] = "Not yours to edit!"
+        redirect "/recipes"
       end
-      flash[:success] = "Recipe successfully updated!"
-      redirect "/recipes/#{@recipe.slug}"
     else
-      flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
-      redirect "/recipes/#{@recipe.slug}/edit"
+      flash[:error] = "You must be logged in to edit a recipe"
+      homepage
     end
   end
 
