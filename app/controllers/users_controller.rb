@@ -86,18 +86,28 @@ class UsersController < ApplicationController
 
   # If user wants to edit their profile
   patch "/users/:slug" do
-    @user = User.find_by_slug(params[:slug])
-    # if successfully update display_name and email, check for new_password
-    if @user.update(display_name: params[:user][:display_name], email: params[:user][:email])
-      # only update password if params[:new_password] is not blank
-      if !params[:user][:new_password].blank?
-        @user.update(password: params[:user][:new_password])
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      if @user == current_user
+        # if successfully update display_name and email, check for new_password
+        if @user.update(display_name: params[:user][:display_name], email: params[:user][:email])
+          # only update password if params[:new_password] is not blank
+          if !params[:user][:new_password].blank?
+            @user.update(password: params[:user][:new_password])
+          end
+          flash[:success] = "Profile successfully updated!"
+          redirect "/users/#{@user.slug}"
+        else
+          flash[:error] = "Edit failure: #{@user.errors.full_messages.to_sentence}"
+          redirect "/users/#{@user.slug}/edit"
+        end
+      else
+        flash[:error] = "Not yours to edit!"
+        homepage
       end
-      flash[:success] = "Profile successfully updated!"
-      redirect "/users/#{@user.slug}"
     else
-      flash[:error] = "Edit failure: #{@user.errors.full_messages.to_sentence}"
-      redirect "/users/#{@user.slug}/edit"
+      flash[:error] = "Must be logged in!"
+      homepage
     end
   end
 
