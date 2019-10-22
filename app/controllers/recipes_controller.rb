@@ -10,23 +10,15 @@ class RecipesController < ApplicationController
     end
   end
 
-  # render new recipe form
   get "/recipes/new" do
     if logged_in?
       erb :"/recipes/new"
-      #erb :"/recipes/number_of_ingredients"
     else
       flash[:error] = "You must be logged in to create a new recipe"
       homepage
     end
   end
-=begin
-  # save user input for number of ingredients to pass when rendering recipes/new
-  post "/recipes/new" do
-    @num = params[:num].to_i
-    erb :"/recipes/new"
-  end
-=end
+
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
@@ -43,33 +35,9 @@ class RecipesController < ApplicationController
       end
       flash[:success] = "Successfully created recipe!"
       redirect "/users/#{@recipe.user.slug}"
-    else
+    else #validation errors
       flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
       redirect "/recipes/new"
-    end
-  end
-
-  get "/search" do
-    if logged_in?
-      # search recipe course
-      @recipes = Recipe.search_course(params[:search])
-      # if search term is not a recipe course
-      if @recipes.empty?
-        # search recipe names
-        @recipes = Recipe.search_name(params[:search])
-        # search ingredients
-        Recipe.all.each do |recipe|
-          if !@recipes.ids.include?(recipe.id)
-            recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
-              @recipes << recipe
-            end
-          end
-        end
-      end
-    erb :"/recipes/results"
-    else
-      flash[:error] = "Must be logged in to search!"
-      homepage
     end
   end
 
@@ -89,11 +57,11 @@ class RecipesController < ApplicationController
 
       if authorized_to_edit?(@recipe)
         erb :"/recipes/edit"
-      else
+      else # not authorized to edit
         flash[:error] = "Not yours to edit!"
         redirect "/recipes"
       end
-    else
+    else # not logged in
       flash[:error] = "You must be logged in to edit a recipe"
       homepage
     end
@@ -128,15 +96,15 @@ class RecipesController < ApplicationController
           end # end add new ingredients
           flash[:success] = "Recipe successfully updated!"
           redirect "/recipes/#{@recipe.slug}"
-        else
+        else # validation errors
           flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
           redirect "/recipes/#{@recipe.slug}/edit"
         end
-      else
+      else # not authorized to edit
         flash[:error] = "Not yours to edit!"
         redirect "/recipes"
       end
-    else
+    else # not logged in
       flash[:error] = "You must be logged in to edit a recipe"
       homepage
     end
@@ -149,12 +117,36 @@ class RecipesController < ApplicationController
         @recipe.destroy
         flash[:success] = "Recipe deleted."
         redirect "/users/#{@recipe.user.slug}"
-      else
+      else # not current user's recipe
         flash[:error] = "Not yours to delete!"
         redirect "/recipes"
       end
-    else
+    else # not logged in
       flash[:error] = "Must be logged in to delete!"
+      homepage
+    end
+  end
+  # search recipe course, name, and ingredients
+  get "/search" do
+    if logged_in?
+      # search recipe course
+      @recipes = Recipe.search_course(params[:search])
+      # if search term is not a recipe course
+      if @recipes.empty?
+        # search recipe names
+        @recipes = Recipe.search_name(params[:search])
+        # search ingredients
+        Recipe.all.each do |recipe|
+          if !@recipes.ids.include?(recipe.id)
+            recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
+              @recipes << recipe
+            end
+          end
+        end
+      end
+    erb :"/recipes/results"
+  else # not logged in
+      flash[:error] = "Must be logged in to search!"
       homepage
     end
   end
