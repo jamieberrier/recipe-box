@@ -12,7 +12,13 @@
   <div class="field">
     <h4><label>Recipe Course</label></h4>
     <div class="control">
-      <table class="course_table" style="width:100%">
+      <% Course.all.each do |course| %>
+        <label for="<%= course.name %>"><%= course.name %></label>
+        <input id="<%= course.name %>" type="radio" name="recipe[course_id]" value="<%= course.id %>">
+        <br>
+      <% end %>
+
+      <!--table class="course_table" style="width:100%">
         <tr>
           <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
           <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
@@ -25,7 +31,7 @@
           <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
           <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
         </tr>
-      </table>
+      </table-->
     </div>
   </div>
 

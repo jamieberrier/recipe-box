@@ -9,7 +9,7 @@
       </a/><br>
     <% end %>
     <h3><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></h3>
-    <p>Course: <%= recipe.course %></p>
+    <p>Course: <%= recipe.course.name %></p>
     <strong><%= recipe.created_at.strftime("Created on %B %-d, %Y") %> by <a href="/users/<%= recipe.user.slug %>"><%= recipe.user.display_name %></a></strong>
     <br>
   </div>

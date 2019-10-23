@@ -3,7 +3,7 @@
   <p>Description: <%= @recipe.description %></p>
 <% end %>
 
-<p>Course: <%= @recipe.course %></p>
+<p>Course: <%= @recipe.course.name %></p>
 
 <% if !authorized_to_edit?(@recipe) %>
   <p>By: <a href="/users/<%= @recipe.user.slug %>"><%= @recipe.user.display_name %></a></p>
