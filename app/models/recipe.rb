@@ -1,7 +1,8 @@
 class Recipe < ActiveRecord::Base
   belongs_to :user
+  belongs_to :course
   validates :user, presence: true
-  validates :name, :total_time, :cook_time, :instructions, :course, presence: true
+  validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true
   validates :name, uniqueness: { case_sensitive: false }
 
   has_many :recipe_ingredients, inverse_of: :recipe
