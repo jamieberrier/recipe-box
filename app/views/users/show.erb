@@ -2,20 +2,26 @@
 
 <% @user.recipes.order(:name).each do |recipe| %>
   <div class="recipe">
+    <!-- Recipe Name -->
     <h3><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></h3>
+    <!-- Recipe Image, if exists -->
     <% if !recipe.image_url.blank? %>
       <a href="/recipes/<%= recipe.slug %>">
         <img src="<%= recipe.image_url %>" alt="<%= recipe.name %> photo" height="100" width="100">
       </a><br>
-      <% end %>
-    <strong>Description: <%= recipe.description %></strong>
-    <br>
+    <% end %>
+    <!-- Recipe Description, if exists -->
+    <% if !recipe.description.blank? %>
+      <strong>Description: <%= recipe.description %></strong>
+      <br>
+    <% end %>
+    <!-- Recipe Created On -->
     <%= recipe.created_at.strftime("Created on %m/%d/%Y at %I:%M %p") %>
     <br>
   </div>
   <br>
 <% end %>
-
+<!-- display edit and delete buttons, if the user profile belongs to the current user-->
 <% if @user == current_user %>
   <div class="field">
     <div class="container">
