@@ -3,6 +3,7 @@ User.destroy_all
 Recipe.destroy_all
 Ingredient.destroy_all
 RecipeIngredient.destroy_all
+Course.destroy_all
 
 # USERS
 jamie = User.create(email: "jamie@jamie.com", password: "test", display_name: "jme")
@@ -93,3 +94,13 @@ RecipeIngredient.create(recipe_id: roasted_carrots.id, ingredient_id: carrot.id,
 RecipeIngredient.create(recipe_id: roasted_carrots.id, ingredient_id: olive_oil.id, ingredient_amount: "3 Tbs")
 RecipeIngredient.create(recipe_id: roasted_carrots.id, ingredient_id: salt.id, ingredient_amount: "to taste")
 RecipeIngredient.create(recipe_id: roasted_carrots.id, ingredient_id: pepper.id, ingredient_amount: "generous")
+
+# COURSES
+Course.create(name: "Hors d'oeuvres")
+Course.create(name: "Amuse-Bouche")
+Course.create(name: "Soup")
+Course.create(name: "Appetizer")
+Course.create(name: "Salad")
+Course.create(name: "Entree")
+Course.create(name: "Side")
+Course.create(name: "Dessert")
