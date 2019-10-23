@@ -20,7 +20,7 @@ class RecipesController < ApplicationController
   end
 
   post "/recipes" do
-    @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course: params[:recipe][:course], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+    @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
       params[:recipe][:ingredients].each do |ingredient|
         if !ingredient[:name].blank?
