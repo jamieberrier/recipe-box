@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-
+  # READ
   get "/recipes" do
     if logged_in?
       @recipes = Recipe.order(:name)
@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-
+  # CREATE
   get "/recipes/new" do
     if logged_in?
       erb :"/recipes/new"
@@ -18,7 +18,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-
+  # CREATE
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
     if @recipe.save
@@ -40,7 +40,7 @@ class RecipesController < ApplicationController
       redirect "/recipes/new"
     end
   end
-
+  # READ
   get "/recipes/:slug" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -50,7 +50,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-
+  # UPDATE
   get "/recipes/:slug/edit" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -66,7 +66,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-
+  # UPDATE
   patch "/recipes/:slug" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -109,7 +109,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-
+  # DESTROY
   delete "/recipes/:slug/delete" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -126,7 +126,7 @@ class RecipesController < ApplicationController
       homepage
     end
   end
-  # search recipe course, name, and ingredients
+  # Search recipe course, name, and ingredients
   get "/search" do
     if logged_in?
       # search recipe course
