@@ -2,7 +2,7 @@
 
 Specs:
 - [x] Use Sinatra to build the app
-      - Used Corneal gem
+      - Corneal gem
 - [x] Use ActiveRecord for storing information in a database
       - gems: activerecord, sinatra-activerecord, rake, sqlite3
       - set up a connection to database in environment.rb
@@ -11,9 +11,9 @@ Specs:
           :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
           )
       - used Rakefile to run ActiveRecord migrations
-      -
+      - ActiveRecord methods: new, save, create
 - [x] Include more than one model class (e.g. User, Post, Category)
-      - User, Recipe, Ingredient, RecipeIngredient
+      - User, Recipe, Ingredient, RecipeIngredient, Course
 - [x] Include at least one has_many relationship on your User model (e.g. User has_many Posts)
       - User has_many :recipes
       - Recipe has_many :recipe_ingredients
@@ -25,12 +25,45 @@ Specs:
       - RecipeIngredient belongs_to :ingredient
       - RecipeIngredient belongs_to :recipe
 - [x] Include user accounts with unique login attribute (username or email)
-      - In User  model -- validates :email, :display_name, presence: true, uniqueness: true
+      - unique email
+        - User model
+          - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
 - [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
+      - RecipesController CRUD routes
+        - CREATE
+          - get "/recipes/new"
+          - post "/recipes"
+        - READ
+          - get "/recipes"
+            - all recipes
+          - get "/recipes/:slug"
+            - one recipe
+        - UPDATE
+          - get "/recipes/:slug/edit"
+          - patch "/recipes/:slug"
+        - DESTROY
+          - delete "/recipes/:slug/delete"
 - [x] Ensure that users can't modify content created by other users
+      - in UPDATE routes and recipes/show view
+        - helper method: authorized_to_edit?(recipe)
+          - current_user == recipe.user
 - [x] Include user input validations
+      - ActiveRecord validations
+        - Recipe model
+          - validates :user, presence: true
+          - validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true
+          - validates :name, uniqueness: { case_sensitive: false }
+        - User model
+          - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
 - [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
+      - gem: sinatra-flash
+      - layout.erb: styled_flash helper method
+      - routes: flash[:error], flash[:success], flash[:warning], flash[:info]
 - [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+      - short description
+      - install instructions
+      - contributors guide
+      - link to the license
 
 Confirm
 - [x] You have a large number of small Git commits
