@@ -11,7 +11,8 @@ A web application designed for users to build their own recipe collections.
 * Clone the Recipe Box repo onto your computer
   * Go to 'https://github.com/jamieberrier/recipe-box'
   * Click on the green **Clone or download** button
-  *
+  * Make sure **Clone with HTTPS** is displayed (if not, click the 'use HTTPS' link)
+  * Click the **clipboard icon**
   * In your terminal, type `git clone` and then paste the copied URL.
 * Type `cd recipe-box` to change the current working directory
 * Run `bundle install` to load the Ruby gems and dependencies
