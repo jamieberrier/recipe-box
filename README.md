@@ -4,7 +4,7 @@ A web application designed for users to build their own recipe collections.
 * Users sign up to create an account.
 * Once logged in to the app, users can create, edit, and delete their recipes and view the recipes of other users.
 * Users can edit their account information and delete their account.
-* Users can also search for recipes by ingredient name or recipe name via a search box in the navigation bar.
+* Users can also search for recipes by ingredient name, recipe name, or recipe course via a search box in the navigation bar.
 
 ## Installation & Setup
 
