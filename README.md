@@ -9,9 +9,7 @@ A web application designed for users to build their own recipe collections.
 ## Installation & Setup
 
 * Clone the Recipe Box repo onto your computer
-  * Go to https://github.com/jamieberrier/recipe-box
-  * Click **Clone or download** button
-  * Click **clipboard icon** (clone with HTTPS)
+  * Copy 'https://github.com/jamieberrier/recipe-box'
   * In your terminal, type `git clone` and then paste the copied URL.
 * Type `cd recipe-box` to change the current working directory
 * Run `bundle install` to load the Ruby gems and dependencies
@@ -21,6 +19,7 @@ A web application designed for users to build their own recipe collections.
 * Type `shotgun` in your terminal to run the Recipe Box web application on your local machine
 * Open your browser and navigate to http://127.0.0.1:9393
 * Once the welcome page loads, click **Sign Up** to create a new user account and login
+  * Or click **Log In** to log in as an existing user from 'db/seeds.rb'
 > _To stop the shotgun session and exit, type `CTRL + C` in your terminal_
 
 ## Contributing
