@@ -129,9 +129,16 @@ class RecipesController < ApplicationController
   # Search recipe course, name, and ingredients
   get "/search" do
     if logged_in?
+      @recipes = []
       # search recipe course
-      @recipes = Recipe.search_course(params[:search])
-      # if search term is not a recipe course
+      Course.all.each do |course|
+        if params[:search].downcase == course.name.downcase
+          Recipe.all.where('course_id is :pat', :pat => course.id).find_each do |recipe|
+            @recipes << recipe
+          end # find_each
+        end # if
+      end # each
+      # if search term is not a course
       if @recipes.empty?
         # search recipe names
         @recipes = Recipe.search_name(params[:search])
@@ -140,14 +147,14 @@ class RecipesController < ApplicationController
           if !@recipes.ids.include?(recipe.id)
             recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
               @recipes << recipe
-            end
-          end
-        end
-      end
-    erb :"/recipes/results"
-  else # not logged in
+            end # find_each
+          end # if
+        end # each
+      end # if @recipes.empty?
+      erb :"/recipes/results"
+    else # not logged in
       flash[:error] = "Must be logged in to search!"
       homepage
-    end
-  end
+    end # logged_in?
+  end # search
 end
