@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  # GET: /users/new
+  # CREATE -- render signup form (GET: /users/new)
   get "/signup" do
     if logged_in?
       redirect "/users/#{@user.id}"
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       erb :"/users/new"
     end
   end
-
+  # CREATE -- accept sign up params and create a user
   post "/users" do
     @user = User.find_by(email: params[:user][:email])
     if @user
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  # render login form
   get "/login" do
     if logged_in?
       redirect "/users/#{current_user.id}"
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       erb :"/users/login"
     end
   end
-
+  # recieve the params from login form
   post "/login" do
     @user = User.find_by(email: params[:user][:email])
 
@@ -44,12 +44,12 @@ class UsersController < ApplicationController
       redirect_to("/login", :error, "Incorrect password")
     end
   end
-
+  # logs out user by clearing session hash
   get "/logout" do
     session.clear
     redirect_to("/", :info, "You are logged out!")
   end
-
+  # READ -- show route for user's profile page
   get "/users/:slug" do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # If user wants to edit their profile
+  # UPDATE -- render form for user to edit their profile
   get "/users/:slug/edit" do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # If user wants to edit their profile
+  # UPDATE -- patch route to update existing user profile
   patch "/users/:slug" do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # If user wants to delete their profile
+  # DESTROY -- delete route to delete an existing user profile
   delete "/users/:slug/delete" do
     @user = User.find_by_slug(params[:slug])
     if logged_in? && current_user == @user
