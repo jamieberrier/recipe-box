@@ -21,11 +21,12 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
+    # keeps track of the user currently logged in
     def current_user
       # if @current_user is assigned, don't evaluate
       @current_user ||= User.find_by(id: session[:user_id])
     end
-
+    # checks if the user is logged in
     def logged_in?
       !!current_user
     end
@@ -33,7 +34,6 @@ class ApplicationController < Sinatra::Base
     def authorized_to_edit?(recipe)
       current_user == recipe.user
     end
-
     # set flash key/value and redirect to route
     def redirect_to(route, type, message)
       flash[type] = message
