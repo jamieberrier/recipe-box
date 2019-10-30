@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  # READ
+  # READ -- index route for all recipes
   get "/recipes" do
     if logged_in?
       @recipes = Recipe.order(:name)
@@ -8,7 +8,7 @@ class RecipesController < ApplicationController
       redirect_to("/", :error, "You must be logged in to view recipes")
     end
   end
-  # CREATE
+  # CREATE -- render form to create new recipe
   get "/recipes/new" do
     if logged_in?
       erb :"/recipes/new"
@@ -16,27 +16,27 @@ class RecipesController < ApplicationController
       redirect_to("/", :error, "You must be logged in to create a new recipe")
     end
   end
-  # CREATE
+  # CREATE -- post route to create new recipe
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
-    if @recipe.save
+    if @recipe.save # valid inputs, add ingredients
       params[:recipe][:ingredients].each do |ingredient|
-        if !ingredient[:name].blank?
+        if !ingredient[:name].blank? # user entered an ingredient
           i = Ingredient.find_by(name: ingredient[:name])
-          if i.nil? # create ingredient
+          if i.nil? # ingredient does not exist, create and add ingredient
             @recipe.ingredients << Ingredient.create(name: ingredient[:name])
-          else
+          else # ingredient exists, add ingredient
             @recipe.ingredients << i
           end
           @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
       redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
-    else #validation errors
+    else # validation errors
       redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
     end
   end
-  # READ
+  # READ -- show route for single recipe (dynamic)
   get "/recipes/:slug" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -45,7 +45,7 @@ class RecipesController < ApplicationController
       redirect_to("/", :error, "You must be logged in to view a recipe")
     end
   end
-  # UPDATE
+  # UPDATE -- render form to edit a recipe
   get "/recipes/:slug/edit" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
@@ -59,34 +59,34 @@ class RecipesController < ApplicationController
       redirect_to("/", :error, "You must be logged in to edit a recipe")
     end
   end
-  # UPDATE
+  # UPDATE -- patch route to update existing recipe
   patch "/recipes/:slug" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
 
       if authorized_to_edit?(@recipe)
-        if @recipe.update(params[:recipe])
+        if @recipe.update(params[:recipe]) # valid recipe inputs, update existing ingredients
           params[:ingredients].each.with_index do |ingredient, index|
-            if ingredient[:name].blank?
+            if ingredient[:name].blank? # user deleted ingredient
               @recipe.recipe_ingredients[index].delete
-            else
+            else # update ingredient name and amount
               @recipe.ingredients[index].update(name: ingredient[:name])
               @recipe.recipe_ingredients[index].update(ingredient_amount: ingredient[:ingredient_amount])
             end
           end
-          # New Ingredients added
+          # check for New Ingredients added
           params[:new_ingredients].each do |new_ingredient|
-            if !new_ingredient[:name].blank?
+            if !new_ingredient[:name].blank? # user entered a new ingredient
               i = Ingredient.find_by(name: new_ingredient[:name])
-              if i.nil? # create ingredient
+              if i.nil? # ingredient does not exist, create ingredient
                 @recipe.ingredients << Ingredient.create(name: new_ingredient[:name])
-              else # add ingredient
+              else # ingredient exists, add ingredient
                 @recipe.ingredients << i
               end
               # update ingredient amount
               @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
             end
-          end # end add new ingredients
+          end # add new ingredients
           redirect_to("/recipes/#{@recipe.slug}", :success, "Recipe successfully updated!")
         else # validation errors
           redirect_to("/recipes/#{@recipe.slug}/edit", :error, "Edit failure: #{@recipe.errors.full_messages.to_sentence}")
@@ -98,11 +98,11 @@ class RecipesController < ApplicationController
       redirect_to("/", :error, "You must be logged in to edit a recipe")
     end
   end
-  # DESTROY
+  # DESTROY -- delete route to delete an existing recipe
   delete "/recipes/:slug/delete" do
     if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
-      if current_user.id == @recipe.user_id
+      if authorized_to_edit?(@recipe)
         @recipe.destroy
         redirect_to("/users/#{@recipe.user.slug}", :success, "Recipe deleted.")
       else # not current user's recipe
