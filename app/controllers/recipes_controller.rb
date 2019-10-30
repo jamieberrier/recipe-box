@@ -121,9 +121,9 @@ class RecipesController < ApplicationController
         if params[:search].downcase == course.name.downcase
           Recipe.all.where('course_id is :pat', :pat => course.id).find_each do |recipe|
             @recipes << recipe
-          end # find_each
-        end # if
-      end # each
+          end
+        end
+      end # search recipe course
       # if search term is not a course
       if @recipes.empty?
         # search recipe names
@@ -133,13 +133,13 @@ class RecipesController < ApplicationController
           if !@recipes.ids.include?(recipe.id)
             recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
               @recipes << recipe
-            end # find_each
-          end # if
-        end # each
-      end # if @recipes.empty?
+            end
+          end
+        end # search ingredients
+      end
       erb :"/recipes/results"
     else # not logged in
       redirect_to("/", :error, "Must be logged in to search!")
-    end # logged_in?
-  end # search
+    end
+  end
 end
