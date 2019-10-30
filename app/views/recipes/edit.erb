@@ -2,6 +2,7 @@
 
   <form action="/recipes/<%= @recipe.slug %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
+  <!-- Recipe Name -->
     <div class="field">
       <h4><label class="label" for="name">Recipe Name</label></h4>
       <div class="control">
@@ -9,6 +10,7 @@
       </div>
     </div>
     <br>
+    <!-- Recipe Course -->
     <div class="field">
       <h4><label>Recipe Course</label></h4>
       <div class="control">
@@ -17,23 +19,9 @@
           <input id="<%= course.name %>" type="radio" name="recipe[course_id]" value="<%= course.id %>" <%='checked' if @recipe.course_id == course.id %>>
           <br>
         <% end %>
-        <!--table class="course_table" style="width:100%">
-          <tr>
-            <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres" <%='checked' if @recipe.course == "Hors d'oeuvres" %>> Hors d'oeuvres</input></td>
-            <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche" <%='checked' if @recipe.course == "Amuse-Bouche" %>> Amuse-Bouche</input></td>
-            <td><input type="radio" name="recipe[course]" id="Soup" value="Soup" <%='checked' if @recipe.course == "Soup" %>> Soup</input></td>
-            <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer" <%='checked' if @recipe.course == "Appetizer" %>> Appetizer</input></td>
-          </tr>
-          <tr>
-            <td><input type="radio" name="recipe[course]" id="Salad" value="Salad" <%='checked' if @recipe.course == "Salad" %>> Salad</input></td>
-            <td><input type="radio" name="recipe[course]" id="Entree" value="Entree" <%='checked' if @recipe.course == "Entree" %>> Entree</input></td>
-            <td><input type="radio" name="recipe[course]" id="Side" value="Side" <%='checked' if @recipe.course == "Side" %>> Side</input></td>
-            <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert" <%='checked' if @recipe.course == "Dessert" %>> Dessert</input></td>
-          </tr>
-      </table-->
     </div>
   </div>
-
+  <!-- Recipe Description -->
   <div class="field">
     <h4><label class="label" for="description">Recipe Description</label></h4>
     <div class="control">
@@ -41,13 +29,14 @@
     </div>
   </div>
   <br>
+  <!-- Recipe Image URL -->
   <div class="field">
     <h4><label class="label" for="image_url">Recipe Image URL</label></h4>
     <div class="control">
       <input class="input is-small" id="image_url" type="text" name="recipe[image_url]" value="<%= @recipe.image_url %>" placeholder="optional">
     </div>
   </div>
-
+  <!-- Recipe Total & Cook Times -->
   <div class="field is-grouped is-grouped-centered">
     <div class="control">
       <table class="table">
@@ -62,6 +51,7 @@
       </table>
     </div>
   </div>
+  <!-- Recipe Current Ingredients -->
   <div class="field">
     <label class="label"><h2>Current Ingredients</h2></label>
   </div>
@@ -84,6 +74,7 @@
       </table>
     </div>
   </div>
+  <!-- Recipe New Ingredients -->
   <div class="field">
     <label class="label"><h2>Add Ingredients</h2></label>
   </div>
@@ -106,7 +97,7 @@
     </div>
   </div>
   <p class="help is-danger">More ingredients can be added by editing the recipe again.</p>
-  <!-- Button to add another ingredient? -->
+  <!-- Recipe Instructions -->
   <div class="field">
     <label class="label" for="instructions"><h2>Instructions</h2></label>
     <div class="control">

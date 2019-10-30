@@ -1,6 +1,7 @@
 <br><h2>Create a New Recipe</h2>
 
 <form action="/recipes" method="POST">
+  <!-- Recipe Name -->
   <div class="field">
     <h4><label class="label" for="name">Recipe Name</label></h4>
     <div class="control">
@@ -8,7 +9,7 @@
     </div>
   </div>
   <br>
-  <!-- make drop down menu? -->
+  <!-- Recipe Course -->
   <div class="field">
     <h4><label>Recipe Course</label></h4>
     <div class="control">
@@ -17,24 +18,9 @@
         <input id="<%= course.name %>" type="radio" name="recipe[course_id]" value="<%= course.id %>">
         <br>
       <% end %>
-
-      <!--table class="course_table" style="width:100%">
-        <tr>
-          <td><input type="radio" name="recipe[course]" id="Hors d'oeuvres" value="Hors d'oeuvres"> Hors d'oeuvres</input></td>
-          <td><input type="radio" name="recipe[course]" id="Amuse-Bouche" value="Amuse-Bouche"> Amuse-Bouche</input></td>
-          <td><input type="radio" name="recipe[course]" id="Soup" value="Soup"> Soup</input></td>
-          <td><input type="radio" name="recipe[course]" id="Appetizer" value="Appetizer"> Appetizer</input></td>
-        </tr>
-        <tr>
-          <td><input type="radio" name="recipe[course]" id="Salad" value="Salad"> Salad</input></td>
-          <td><input type="radio" name="recipe[course]" id="Entree" value="Entree"> Entree</input></td>
-          <td><input type="radio" name="recipe[course]" id="Side" value="Side"> Side</input></td>
-          <td><input type="radio" name="recipe[course]" id="Dessert" value="Dessert"> Dessert</input></td>
-        </tr>
-      </table-->
     </div>
   </div>
-
+  <!-- Recipe Description -->
   <div class="field">
     <h4><label class="label" for="description">Recipe Description</label></h4>
     <div class="control">
@@ -42,6 +28,7 @@
     </div>
   </div>
   <br>
+  <!-- Recipe Image URL -->
   <div class="field">
     <h4><label class="label" for="image_url">Recipe Image URL</label></h4>
     <div class="control">
@@ -49,7 +36,7 @@
     </div>
   </div>
   <br>
-
+  <!-- Recipe Total & Cook Times -->
   <div class="field is-grouped is-grouped-centered">
     <div class="control">
       <table class="table">
@@ -65,7 +52,7 @@
     </div>
   </div>
   <br>
-
+  <!-- Recipe Ingredients -->
   <div class="field">
     <label class="label"><h2>Ingredients</h2></label>
   </div>
@@ -88,14 +75,14 @@
     </div>
   </div>
   <p class="help is-danger">More ingredients can be added by editing the recipe.</p>
-
+  <!-- Recipe Instructions -->
   <div class="field">
     <label class="label" for="instructions"><h2>Instructions</h2></label>
     <div class="control">
       <textarea class="textarea" id="instructions" name="recipe[instructions]"></textarea>
     </div>
   </div>
-
+  <!-- Create Recipe Button -->
   <div class="field">
     <div class="control">
       <input class="button is-success is-small is-fullwidth" type="submit" value="Create Recipe"></center>
