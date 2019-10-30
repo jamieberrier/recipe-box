@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
-
+    # registering the sinatra flash gem
     register Sinatra::Flash
   end
 
@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    # keeps track of the user currently logged in
+    # keeps track of/find the user currently logged in
     def current_user
       # if @current_user is assigned, don't evaluate
       @current_user ||= User.find_by(id: session[:user_id])
