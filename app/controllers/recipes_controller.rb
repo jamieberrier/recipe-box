@@ -19,16 +19,20 @@ class RecipesController < ApplicationController
   # CREATE -- post route to create new recipe
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
-    if @recipe.save # valid inputs, add ingredients
-      params[:recipe][:ingredients].each do |ingredient|
-        if !ingredient[:name].blank? # user entered an ingredient
-          i = Ingredient.find_by(name: ingredient[:name])
-          if i.nil? # ingredient does not exist, create and add ingredient
-            @recipe.ingredients << Ingredient.create(name: ingredient[:name])
-          else # ingredient exists, add ingredient
-            @recipe.ingredients << i
+    if @recipe.save # valid inputs, check for ingredients
+      if params[:recipe][:ingredients].first["name"].blank? # first ingredient name is blank
+        redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
+      else # user entered at least 1 ingredient
+        params[:recipe][:ingredients].each do |ingredient|
+          if !ingredient[:name].blank? # user entered an ingredient name
+            i = Ingredient.find_by(name: ingredient[:name])
+            if i.nil? # ingredient does not exist, create and add ingredient
+              @recipe.ingredients << Ingredient.create(name: ingredient[:name])
+            else # ingredient exists, add ingredient
+              @recipe.ingredients << i
+            end
+            @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
           end
-          @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
       redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
