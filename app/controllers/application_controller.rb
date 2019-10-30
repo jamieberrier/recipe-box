@@ -29,13 +29,15 @@ class ApplicationController < Sinatra::Base
     def logged_in?
       !!current_user
     end
-
+     # does the recipe belong to the current user
     def authorized_to_edit?(recipe)
       current_user == recipe.user
     end
 
-    def homepage
-      redirect "/"
+    # set flash key/value and redirect to route
+    def redirect_to(route, type, message)
+      flash[type] = message
+      redirect route
     end
   end # end of helpers
 end
