@@ -18,16 +18,18 @@ class RecipesController < ApplicationController
   end
   # CREATE -- post route to create new recipe
   post "/recipes" do
-    # check user entered at least 1 ingredient (if first ingredient name is blank)
-    if params[:recipe][:ingredients].first["name"].blank?
-      redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
-    else # user entered at least 1 ingredient
-      @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
-      if @recipe.save # valid inputs, add ingredients
-        add_ingredients(params[:recipe][:ingredients])
-        redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
-      else # validation errors
-        redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
+    if logged_in?
+      # check user entered at least 1 ingredient (if first ingredient name is blank)
+      if params[:recipe][:ingredients].first["name"].blank?
+        redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
+      else # user entered at least 1 ingredient
+        @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+        if @recipe.save # valid inputs, add ingredients
+          add_ingredients(params[:recipe][:ingredients])
+          redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
+        else # validation errors
+          redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
+        end
       end
     end
   end
