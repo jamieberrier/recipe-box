@@ -5,8 +5,7 @@ class RecipesController < ApplicationController
       @recipes = Recipe.order(:name)
       erb :"/recipes/index"
     else
-      flash[:error] = "You must be logged in to view recipes"
-      homepage
+      redirect_to("/", :error, "You must be logged in to view recipes")
     end
   end
   # CREATE
@@ -14,8 +13,7 @@ class RecipesController < ApplicationController
     if logged_in?
       erb :"/recipes/new"
     else
-      flash[:error] = "You must be logged in to create a new recipe"
-      homepage
+      redirect_to("/", :error, "You must be logged in to create a new recipe")
     end
   end
   # CREATE
@@ -33,11 +31,9 @@ class RecipesController < ApplicationController
           @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
-      flash[:success] = "Successfully created recipe!"
-      redirect "/users/#{@recipe.user.slug}"
+      redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
     else #validation errors
-      flash[:error] = "Creation failure: #{@recipe.errors.full_messages.to_sentence}"
-      redirect "/recipes/new"
+      redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
     end
   end
   # READ
@@ -46,8 +42,7 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find_by_slug(params[:slug])
       erb :"/recipes/show"
     else
-      flash[:error] = "You must be logged in to view a recipe"
-      homepage
+      redirect_to("/", :error, "You must be logged in to view a recipe")
     end
   end
   # UPDATE
@@ -58,12 +53,10 @@ class RecipesController < ApplicationController
       if authorized_to_edit?(@recipe)
         erb :"/recipes/edit"
       else # not authorized to edit
-        flash[:error] = "Not yours to edit!"
-        redirect "/recipes"
+        redirect_to("/recipes", :error, "Not yours to edit!")
       end
     else # not logged in
-      flash[:error] = "You must be logged in to edit a recipe"
-      homepage
+      redirect_to("/", :error, "You must be logged in to edit a recipe")
     end
   end
   # UPDATE
@@ -94,19 +87,15 @@ class RecipesController < ApplicationController
               @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
             end
           end # end add new ingredients
-          flash[:success] = "Recipe successfully updated!"
-          redirect "/recipes/#{@recipe.slug}"
+          redirect_to("/recipes/#{@recipe.slug}", :success, "Recipe successfully updated!")
         else # validation errors
-          flash[:error] = "Edit failure: #{@recipe.errors.full_messages.to_sentence}"
-          redirect "/recipes/#{@recipe.slug}/edit"
+          redirect_to("/recipes/#{@recipe.slug}/edit", :error, "Edit failure: #{@recipe.errors.full_messages.to_sentence}")
         end
       else # not authorized to edit
-        flash[:error] = "Not yours to edit!"
-        redirect "/recipes"
+        redirect_to("/recipes", :error, "Not yours to edit!")
       end
     else # not logged in
-      flash[:error] = "You must be logged in to edit a recipe"
-      homepage
+      redirect_to("/", :error, "You must be logged in to edit a recipe")
     end
   end
   # DESTROY
@@ -115,15 +104,12 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find_by_slug(params[:slug])
       if current_user.id == @recipe.user_id
         @recipe.destroy
-        flash[:success] = "Recipe deleted."
-        redirect "/users/#{@recipe.user.slug}"
+        redirect_to("/users/#{@recipe.user.slug}", :success, "Recipe deleted.")
       else # not current user's recipe
-        flash[:error] = "Not yours to delete!"
-        redirect "/recipes"
+        redirect_to("/recipes", :error, "Not yours to delete!")
       end
     else # not logged in
-      flash[:error] = "Must be logged in to delete!"
-      homepage
+      redirect_to("/", :error, "Must be logged in to delete!")
     end
   end
   # Search recipe course, name, and ingredients
@@ -153,8 +139,7 @@ class RecipesController < ApplicationController
       end # if @recipes.empty?
       erb :"/recipes/results"
     else # not logged in
-      flash[:error] = "Must be logged in to search!"
-      homepage
+      redirect_to("/", :error, "Must be logged in to search!")
     end # logged_in?
   end # search
 end
