@@ -19,21 +19,12 @@ class RecipesController < ApplicationController
   # CREATE -- post route to create new recipe
   post "/recipes" do
     @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
-    if @recipe.save # valid inputs, check for ingredients
+    # valid inputs, check for ingredients
+    if @recipe.save
       if params[:recipe][:ingredients].first["name"].blank? # first ingredient name is blank
         redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
       else # user entered at least 1 ingredient
-        params[:recipe][:ingredients].each do |ingredient|
-          if !ingredient[:name].blank? # user entered an ingredient name
-            i = Ingredient.find_by(name: ingredient[:name])
-            if i.nil? # ingredient does not exist, create and add ingredient
-              @recipe.ingredients << Ingredient.create(name: ingredient[:name])
-            else # ingredient exists, add ingredient
-              @recipe.ingredients << i
-            end
-            @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
-          end
-        end
+        add_ingredients(params[:recipe][:ingredients])
       end
       redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
     else # validation errors
@@ -79,18 +70,7 @@ class RecipesController < ApplicationController
             end
           end
           # check for New Ingredients added
-          params[:new_ingredients].each do |new_ingredient|
-            if !new_ingredient[:name].blank? # user entered a new ingredient
-              i = Ingredient.find_by(name: new_ingredient[:name])
-              if i.nil? # ingredient does not exist, create ingredient
-                @recipe.ingredients << Ingredient.create(name: new_ingredient[:name])
-              else # ingredient exists, add ingredient
-                @recipe.ingredients << i
-              end
-              # update ingredient amount
-              @recipe.recipe_ingredients.last.update(ingredient_amount: new_ingredient[:ingredient_amount])
-            end
-          end # add new ingredients
+          add_ingredients(params[:new_ingredients])
           redirect_to("/recipes/#{@recipe.slug}", :success, "Recipe successfully updated!")
         else # validation errors
           redirect_to("/recipes/#{@recipe.slug}/edit", :error, "Edit failure: #{@recipe.errors.full_messages.to_sentence}")
@@ -144,6 +124,23 @@ class RecipesController < ApplicationController
       erb :"/recipes/results"
     else # not logged in
       redirect_to("/", :error, "Must be logged in to search!")
+    end
+  end
+
+  helpers do
+    def add_ingredients(ingredients)
+      ingredients.each do |ingredient|
+        if !ingredient[:name].blank? # user entered an ingredient name
+          i = Ingredient.find_by(name: ingredient[:name])
+          if i.nil? # ingredient does not exist, create and add ingredient
+            @recipe.ingredients << Ingredient.create(name: ingredient[:name])
+          else # ingredient exists, add ingredient
+            @recipe.ingredients << i
+          end
+          # update ingredient amount
+          @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
+        end
+      end
     end
   end
 end
