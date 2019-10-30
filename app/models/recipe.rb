@@ -16,7 +16,7 @@ class Recipe < ActiveRecord::Base
     Recipe.all.find{ |recipe| recipe.slug == slug }
   end
 
-  def self.search_name(search)
-    where('name like :pat', :pat => "%#{search}%")
+  def self.search_name(search_term)
+    where('name like :pat', pat: "%#{search_term}%")
   end
 end
