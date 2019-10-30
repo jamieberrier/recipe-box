@@ -18,17 +18,17 @@ class RecipesController < ApplicationController
   end
   # CREATE -- post route to create new recipe
   post "/recipes" do
-    @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
-    # valid inputs, check for ingredients
-    if @recipe.save
-      if params[:recipe][:ingredients].first["name"].blank? # first ingredient name is blank
-        redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
-      else # user entered at least 1 ingredient
+    # check user entered at least 1 ingredient (if first ingredient name is blank)
+    if params[:recipe][:ingredients].first["name"].blank?
+      redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
+    else # user entered at least 1 ingredient
+      @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+      if @recipe.save # valid inputs, add ingredients
         add_ingredients(params[:recipe][:ingredients])
+        redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
+      else # validation errors
+        redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
       end
-      redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
-    else # validation errors
-      redirect_to("/recipes/new", :error, "Creation failure: #{@recipe.errors.full_messages.to_sentence}")
     end
   end
   # READ -- show route for single recipe (dynamic)
@@ -103,7 +103,8 @@ class RecipesController < ApplicationController
       # search recipe course
       Course.all.each do |course|
         if params[:search].downcase == course.name.downcase
-          Recipe.all.where('course_id is :pat', :pat => course.id).find_each do |recipe|
+          # The find_each method retrieves records in batches and then yields each one to the block
+          Recipe.all.where(course_id: course.id).find_each do |recipe|
             @recipes << recipe
           end
         end
@@ -115,7 +116,7 @@ class RecipesController < ApplicationController
         # search ingredients
         Recipe.all.each do |recipe|
           if !@recipes.ids.include?(recipe.id)
-            recipe.ingredients.where('name like :pat', :pat => "%#{params[:search]}%").find_each do |i|
+            recipe.ingredients.where('name like :pat', pat: "%#{params[:search]}%").find_each do |i|
               @recipes << recipe
             end
           end
