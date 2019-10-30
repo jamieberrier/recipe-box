@@ -12,17 +12,14 @@ class UsersController < ApplicationController
   post "/users" do
     @user = User.find_by(email: params[:user][:email])
     if @user
-      flash[:warning] = "User already exists, please log in"
-      redirect "/login"
+      redirect_to("/login", :warning, "User already exists, please log in")
     else
       @user = User.new(params[:user])
       if @user.save
         session[:user_id] = @user.id
-        flash[:success] = "Successfully signed up!"
-        redirect "/users/#{@user.slug}"
+        redirect_to("/users/#{@user.slug}", :success, "Successfully signed up!")
       else
-        flash[:error] = "Signup failure: #{@user.errors.full_messages.to_sentence}"
-        redirect "/signup"
+        redirect_to("/signup", :error, "Signup failure: #{@user.errors.full_messages.to_sentence}")
       end
     end
   end
@@ -40,21 +37,17 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:user][:password])
        session[:user_id] = @user.id
-       flash[:info] = "Welcome #{@user.display_name}!"
-       redirect "/users/#{@user.slug}"
+       redirect_to("/users/#{@user.slug}", :info, "Welcome #{@user.display_name}!")
     elsif !@user
-      flash[:error] = "Incorrect email address...<a href='/signup'>Sign Up?</a>"
-      redirect "/login"
+      redirect_to("/login", :error, "Incorrect email address...<a href='/signup'>Sign Up?</a>")
     else @user && !@user.authenticate(params[:user][:password])
-      flash[:error] = "Incorrect password"
-      redirect "/login"
+      redirect_to("/login", :error, "Incorrect password")
     end
   end
 
   get "/logout" do
     session.clear
-    flash[:info] = "You are logged out!"
-    homepage
+    redirect_to("/", :info, "You are logged out!")
   end
 
   get "/users/:slug" do
@@ -62,8 +55,7 @@ class UsersController < ApplicationController
       @user = User.find_by_slug(params[:slug])
       erb :"/users/show"
     else
-      flash[:error] = "Must be logged in to view a user's recipes"
-      homepage
+      redirect_to("/", :error, "Must be logged in to view a user's recipes")
     end
   end
 
@@ -75,12 +67,10 @@ class UsersController < ApplicationController
       if @user == current_user
         erb :"/users/edit"
       else
-        flash[:error] = "Not yours to edit!"
-        homepage
+        redirect_to("/", :error, "Not yours to edit!")
       end
     else
-      flash[:error] = "Must be logged in!"
-      homepage
+      redirect_to("/", :error, "Must be logged in to access!")
     end
   end
 
@@ -95,19 +85,15 @@ class UsersController < ApplicationController
           if !params[:user][:new_password].blank?
             @user.update(password: params[:user][:new_password])
           end
-          flash[:success] = "Profile successfully updated!"
-          redirect "/users/#{@user.slug}"
+          redirect_to("/users/#{@user.slug}", :success, "Profile successfully updated!")
         else
-          flash[:error] = "Edit failure: #{@user.errors.full_messages.to_sentence}"
-          redirect "/users/#{@user.slug}/edit"
+          redirect_to("/users/#{@user.slug}/edit", :error, "Edit failure: #{@user.errors.full_messages.to_sentence}")
         end
       else
-        flash[:error] = "Not yours to edit!"
-        homepage
+        redirect_to("/", :error, "Not yours to edit!")
       end
     else
-      flash[:error] = "Must be logged in!"
-      homepage
+      redirect_to("/", :error, "Must be logged in to edit profile!")
     end
   end
 
@@ -116,11 +102,9 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     if logged_in? && current_user == @user
       @user.destroy
-      flash[:success] = "User profile deleted."
-      homepage
+      redirect_to("/", :success, "User profile deleted.")
     else
-      flash[:error] = "Not yours to delete!"
-      homepage
+      redirect_to("/", :error, "Not yours to delete!")
     end
   end
 end
