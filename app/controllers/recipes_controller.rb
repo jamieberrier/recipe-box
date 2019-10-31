@@ -134,16 +134,11 @@ class RecipesController < ApplicationController
     def add_ingredients(ingredients)
       ingredients.each do |ingredient|
         if !ingredient[:name].blank? # user entered an ingredient name
-          i = Ingredient.find_by(name: ingredient[:name])
-          if i.nil? # ingredient does not exist, create and add ingredient
-            @recipe.ingredients << Ingredient.create(name: ingredient[:name])
-          else # ingredient exists, add ingredient
-            @recipe.ingredients << i
-          end
+          @recipe.ingredients << Ingredient.find_or_create_by(name: ingredient[:name])
           # update ingredient amount
           @recipe.recipe_ingredients.last.update(ingredient_amount: ingredient[:ingredient_amount])
         end
       end
-    end
-  end
+    end # add_ingredients
+  end # helpers
 end
