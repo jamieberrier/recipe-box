@@ -41,9 +41,29 @@ At the end of this unit you should be able to explain the MVC flow in your own w
   - **"User Authentication in Sinatra" + "Securing Passwords in Sinatra" Labs:** Double down on these labs to confirm your understanding of the authentication flow in Sinatra. Check for understanding by answering these questions:
 
       1. What is a `session`? How do I enable it in my application and why?
+        * the time between when someone logs in to and logs out of your app
+        * The action of logging in is the simple action of storing a user's ID in the session hash
+        * The action of 'logging out' is really just the action of clearing all of the data, including the user's ID, from the session hash.
+        * in the same controller route in which we create a new user, we set the session[:user_id] equal to the new user's ID, effectively logging them in.
+        * enable :sessions in ApplicationController
+        * 
+
       2. What are the basics of ActiveRecord's `has_secure_password` method?
+        * ActiveRecord macro that works in conjunction with bcrypt gem and gives us all of those abilities in a secure way that doesn't actually store the plain text password in the database.
+        * even though our database has a column called password_digest, we still access the attribute of password. This is given to us by has_secure_password
+        * we won't be able to save this to the database unless our user filled out the password field. Calling user.save will return false if the user can't be persisted.
+
       3. What does the `.authenticate` method do and how is it connected to the `has_secure_password` method?
+        * validates password match on User model
+        * metaprogramming - by adding `has_secure_password` we told Ruby to add an `.authenticate` method to our class
+          1. Takes a String as an argument e.g. i_luv@byron_poodle_darling
+          2. It turns the String into a salted, hashed version (76776516e058d2bf187213df6917a7e)
+          3. It compares this salted, hashed version with the user's stored salted, hashed password in the database
+          4. If the two versions match, authenticate will return the User instance; if not, it returns false
       4. Why do we use the `bcrypt` gem and what is the significance of adding the `password_digest` column to the `User` model in the database?
+        * BCrypt will store a salted, hashed version of our users' passwords in our database in a column called password_digest.
+        * password encryption: the act of scrambling a user's password into a super-secret code and storing a de-crypter that will be able to match up a plaintext password entered by a user with the encrypted version stored in a database.
+        * to implement running the passwords through a hashing algorithm. A hashing algorithm manipulates data in such a way that it cannot be un-manipulated. This is to say that if someone got a hold of the hashed version of a password, they would have no way to turn it back into the original. In addition to hashing the password, we'll also add a "salt". A salt is simply a random string of characters that gets added into the hash. That way, if two of our users use the password "fido", they will end up with different hashes in our database.
 
 ## DON'T Spend _Too_ Much Time Here:
 
