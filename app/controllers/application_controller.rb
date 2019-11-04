@@ -1,17 +1,17 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
-
+  # Sinatra configuration
   configure do
     set :public_folder, 'public'
-    set :views, 'app/views'
+    set :views, 'app/views' # tell Sinatra where to look for views
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
-    # registering the sinatra flash gem
-    register Sinatra::Flash
+
+    register Sinatra::Flash # registering the sinatra flash gem
   end
 
-  # welcome/home page
+  # root route - welcome/home page
   get "/" do
     if logged_in?
       redirect "/users/#{current_user.slug}"
