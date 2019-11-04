@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
   # READ -- show route for single recipe (dynamic)
   get "/recipes/:slug" do
     if logged_in?
-      @recipe = Recipe.find_by_slug(params[:slug])
+      find_recipe
       erb :"/recipes/show"
     else
       redirect_to("/", :error, "You must be logged in to view a recipe")
@@ -45,8 +45,7 @@ class RecipesController < ApplicationController
   # UPDATE -- render form to edit a recipe
   get "/recipes/:slug/edit" do
     if logged_in?
-      @recipe = Recipe.find_by_slug(params[:slug])
-
+      find_recipe
       if authorized_to_edit?(@recipe)
         erb :"/recipes/edit"
       else # not authorized to edit
@@ -59,7 +58,7 @@ class RecipesController < ApplicationController
   # UPDATE -- patch route to update existing recipe
   patch "/recipes/:slug" do
     if logged_in?
-      @recipe = Recipe.find_by_slug(params[:slug])
+      find_recipe
 
       if authorized_to_edit?(@recipe)
         if @recipe.update(params[:recipe]) # valid recipe inputs, update existing ingredients
@@ -87,7 +86,7 @@ class RecipesController < ApplicationController
   # DESTROY -- delete route to delete an existing recipe
   delete "/recipes/:slug/delete" do
     if logged_in?
-      @recipe = Recipe.find_by_slug(params[:slug])
+      find_recipe
       if authorized_to_edit?(@recipe)
         @recipe.destroy
         redirect_to("/users/#{@recipe.user.slug}", :success, "Recipe deleted.")
@@ -131,6 +130,10 @@ class RecipesController < ApplicationController
   end
 
   helpers do
+    def find_recipe
+      @recipe = Recipe.find_by_slug(params[:slug])
+    end
+
     def add_ingredients(ingredients)
       ingredients.each do |ingredient|
         if !ingredient[:name].blank? # user entered an ingredient name
