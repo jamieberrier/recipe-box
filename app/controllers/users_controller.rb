@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   # CREATE -- accept sign up params and create a user
   post "/users" do
-    @user = User.find_by(email: params[:user][:email])
+    find_user_by_email
     if @user
       redirect_to("/login", :warning, "User already exists, please log in")
     else
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
   # recieve the params from login form
   post "/login" do
-    @user = User.find_by(email: params[:user][:email])
+    find_user_by_email
 
     if @user && @user.authenticate(params[:user][:password])
        session[:user_id] = @user.id
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   # READ -- show route for user's profile page
   get "/users/:slug" do
     if logged_in?
-      @user = User.find_by_slug(params[:slug])
+      find_user_by_slug
       erb :"/users/show"
     else
       redirect_to("/", :error, "Must be logged in to view a user's recipes")
@@ -62,8 +62,7 @@ class UsersController < ApplicationController
   # UPDATE -- render form for user to edit their profile
   get "/users/:slug/edit" do
     if logged_in?
-      @user = User.find_by_slug(params[:slug])
-
+      find_user_by_slug
       if @user == current_user
         erb :"/users/edit"
       else
@@ -77,7 +76,7 @@ class UsersController < ApplicationController
   # UPDATE -- patch route to update existing user profile
   patch "/users/:slug" do
     if logged_in?
-      @user = User.find_by_slug(params[:slug])
+      find_user_by_slug
       if @user == current_user
         # if successfully update display_name and email, check for new_password
         if @user.update(display_name: params[:user][:display_name], email: params[:user][:email])
@@ -99,12 +98,22 @@ class UsersController < ApplicationController
 
   # DESTROY -- delete route to delete an existing user profile
   delete "/users/:slug/delete" do
-    @user = User.find_by_slug(params[:slug])
+    find_user_by_slug
     if logged_in? && current_user == @user
       @user.destroy
       redirect_to("/", :success, "User profile deleted.")
     else
       redirect_to("/", :error, "Not yours to delete!")
+    end
+  end
+
+  helpers do
+    def find_user_by_slug
+      @user = User.find_by_slug(params[:slug])
+    end
+
+    def find_user_by_email
+      @user = User.find_by(email: params[:user][:email])
     end
   end
 end
