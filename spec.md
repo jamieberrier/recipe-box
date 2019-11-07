@@ -6,7 +6,7 @@ Specs:
 - [x] Use ActiveRecord for storing information in a database  
       - gems: activerecord, sinatra-activerecord, rake, sqlite3  
       - set up a connection to database in environment.rb  
-          - ActiveRecord::Base.establish_connection(
+          * ActiveRecord::Base.establish_connection(
           :adapter => "sqlite3",
           :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
           )  
@@ -26,35 +26,35 @@ Specs:
       - RecipeIngredient belongs_to :recipe  
 - [x] Include user accounts with unique login attribute (username or email)  
       - unique email  
-        - User model  
-          - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
+        * User model  
+          + validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
 - [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying  
       - RecipesController CRUD routes  
-        - CREATE  
-          - get "/recipes/new"  
-          - post "/recipes"  
-        - READ  
-          - get "/recipes"  
+        * CREATE  
+          + get "/recipes/new"  
+          + post "/recipes"  
+        * READ  
+          + get "/recipes"  
             - all recipes  
-          - get "/recipes/:slug"  
+          + get "/recipes/:slug"  
             - one recipe  
-        - UPDATE  
-          - get "/recipes/:slug/edit"  
-          - patch "/recipes/:slug"  
-        - DESTROY  
-          - delete "/recipes/:slug/delete"
+        * UPDATE  
+          + get "/recipes/:slug/edit"  
+          + patch "/recipes/:slug"  
+        * DESTROY  
+          + delete "/recipes/:slug/delete"
 - [x] Ensure that users can't modify content created by other users  
       - in UPDATE routes and recipes/show view  
-        - helper method: authorized_to_edit?(recipe)  
-          - current_user == recipe.user
+        * helper method: authorized_to_edit?(recipe)  
+          + current_user == recipe.user
 - [x] Include user input validations  
       - ActiveRecord validations  
-        - Recipe model  
-          - validates :user, presence: true  
-          - validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true  
-          - validates :name, uniqueness: { case_sensitive: false }  
-        - User model  
-          - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
+        * Recipe model  
+          + validates :user, presence: true  
+          + validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true  
+          + validates :name, uniqueness: { case_sensitive: false }  
+        * User model  
+          + validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
 - [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)  
       - gem: sinatra-flash  
       - layout.erb: styled_flash helper method  
