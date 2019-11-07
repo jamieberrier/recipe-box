@@ -6,7 +6,7 @@ Specs:
 - [x] Use ActiveRecord for storing information in a database  
       - gems: activerecord, sinatra-activerecord, rake, sqlite3  
       - set up a connection to database in environment.rb  
-        - ActiveRecord::Base.establish_connection(
+          - ActiveRecord::Base.establish_connection(
           :adapter => "sqlite3",
           :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
           )  
