@@ -47,23 +47,23 @@ Specs:
       - in UPDATE routes and recipes/show view  
         - helper method: authorized_to_edit?(recipe)  
           - current_user == recipe.user
-- [x] Include user input validations
-      - ActiveRecord validations
-        - Recipe model
-          - validates :user, presence: true
-          - validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true
-          - validates :name, uniqueness: { case_sensitive: false }
-        - User model
+- [x] Include user input validations  
+      - ActiveRecord validations  
+        - Recipe model  
+          - validates :user, presence: true  
+          - validates :name, :total_time, :cook_time, :instructions, :course_id, presence: true  
+          - validates :name, uniqueness: { case_sensitive: false }  
+        - User model  
           - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
-- [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
-      - gem: sinatra-flash
-      - layout.erb: styled_flash helper method
+- [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)  
+      - gem: sinatra-flash  
+      - layout.erb: styled_flash helper method  
       - routes: flash[:error], flash[:success], flash[:warning], flash[:info]
-- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
-      - short description
-      - install instructions
-      - contributors guide
-      - link to the license
+- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code  
+      - short description  
+      - install instructions  
+      - contributors guide  
+      - link to the license  
 
 Confirm
 - [x] You have a large number of small Git commits
