@@ -2,7 +2,7 @@
 
 Specs:
 - [x] Use Sinatra to build the app
-      - Corneal gem
+      * Corneal gem
 - [x] Use ActiveRecord for storing information in a database
       - gems: activerecord, sinatra-activerecord, rake, sqlite3
       - set up a connection to database in environment.rb
