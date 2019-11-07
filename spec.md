@@ -9,43 +9,43 @@ Specs:
         - ActiveRecord::Base.establish_connection(
           :adapter => "sqlite3",
           :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
-          )
+          )  
       - used Rakefile to run ActiveRecord migrations  
       - ActiveRecord methods: new, save, create
 - [x] Include more than one model class (e.g. User, Post, Category)  
       - User, Recipe, Ingredient, RecipeIngredient, Course
-- [x] Include at least one has_many relationship on your User model (e.g. User has_many Posts)
-      - User has_many :recipes
-      - Recipe has_many :recipe_ingredients
-      - Recipe has_many :ingredients, through: :recipe_ingredients
-      - Ingredient has_many :recipe_ingredients
-      - Ingredient has_many :recipes, through: :recipe_ingredients
-- [x] Include at least one belongs_to relationship on another model (e.g. Post belongs_to User)
-      - Recipe belongs_to :user
-      - RecipeIngredient belongs_to :ingredient
-      - RecipeIngredient belongs_to :recipe
-- [x] Include user accounts with unique login attribute (username or email)
-      - unique email
-        - User model
+- [x] Include at least one has_many relationship on your User model (e.g. User has_many Posts)  
+      - User has_many :recipes  
+      - Recipe has_many :recipe_ingredients  
+      - Recipe has_many :ingredients, through: :recipe_ingredients  
+      - Ingredient has_many :recipe_ingredients  
+      - Ingredient has_many :recipes, through: :recipe_ingredients  
+- [x] Include at least one belongs_to relationship on another model (e.g. Post belongs_to User)  
+      - Recipe belongs_to :user  
+      - RecipeIngredient belongs_to :ingredient  
+      - RecipeIngredient belongs_to :recipe  
+- [x] Include user accounts with unique login attribute (username or email)  
+      - unique email  
+        - User model  
           - validates :email, :display_name, presence: true, uniqueness: { case_sensitive: false }
-- [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
-      - RecipesController CRUD routes
-        - CREATE
-          - get "/recipes/new"
-          - post "/recipes"
-        - READ
-          - get "/recipes"
-            - all recipes
-          - get "/recipes/:slug"
-            - one recipe
-        - UPDATE
-          - get "/recipes/:slug/edit"
-          - patch "/recipes/:slug"
-        - DESTROY
+- [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying  
+      - RecipesController CRUD routes  
+        - CREATE  
+          - get "/recipes/new"  
+          - post "/recipes"  
+        - READ  
+          - get "/recipes"  
+            - all recipes  
+          - get "/recipes/:slug"  
+            - one recipe  
+        - UPDATE  
+          - get "/recipes/:slug/edit"  
+          - patch "/recipes/:slug"  
+        - DESTROY  
           - delete "/recipes/:slug/delete"
-- [x] Ensure that users can't modify content created by other users
-      - in UPDATE routes and recipes/show view
-        - helper method: authorized_to_edit?(recipe)
+- [x] Ensure that users can't modify content created by other users  
+      - in UPDATE routes and recipes/show view  
+        - helper method: authorized_to_edit?(recipe)  
           - current_user == recipe.user
 - [x] Include user input validations
       - ActiveRecord validations
