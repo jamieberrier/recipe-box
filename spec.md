@@ -2,17 +2,17 @@
 
 Specs:
 - [x] Use Sinatra to build the app  
-      * Corneal gem
-- [x] Use ActiveRecord for storing information in a database
-      - gems: activerecord, sinatra-activerecord, rake, sqlite3
-      - set up a connection to database in environment.rb
+      - Corneal gem
+- [x] Use ActiveRecord for storing information in a database  
+      - gems: activerecord, sinatra-activerecord, rake, sqlite3  
+      - set up a connection to database in environment.rb  
         - ActiveRecord::Base.establish_connection(
           :adapter => "sqlite3",
           :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
           )
-      - used Rakefile to run ActiveRecord migrations
+      - used Rakefile to run ActiveRecord migrations  
       - ActiveRecord methods: new, save, create
-- [x] Include more than one model class (e.g. User, Post, Category)
+- [x] Include more than one model class (e.g. User, Post, Category)  
       - User, Recipe, Ingredient, RecipeIngredient, Course
 - [x] Include at least one has_many relationship on your User model (e.g. User has_many Posts)
       - User has_many :recipes
