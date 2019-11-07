@@ -11,6 +11,7 @@ bob = User.create(email: "bob@bob.com", password: "test", display_name: "bob")
 sam = User.create(email: "sam@sam.com", password: "test", display_name: "sam")
 sue = User.create(email: "sue@sue.com", password: "test", display_name: "sue")
 fred = User.create(email: "fred@fred.com", password: "test", display_name: "fred")
+howard = User.create(email: "howard@howard.comn", password: "test", display_name: "Howard")
 
 # RECIPES
 carrot_cake = Recipe.create(user_id: jamie.id, name: "Carrot Cake", course: "dessert", description: "yummy cake", total_time: "2 hours", cook_time: "45 minutes", image_url: "https://i.ytimg.com/vi/EJ5AlErxLWY/maxresdefault.jpg", instructions: "MAKE BATTER

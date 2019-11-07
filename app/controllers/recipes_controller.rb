@@ -23,7 +23,7 @@ class RecipesController < ApplicationController
       if params[:recipe][:ingredients].first["name"].blank?
         redirect_to("/recipes/new", :error, "Must include at least 1 ingredient")
       else # user entered at least 1 ingredient
-        @recipe = Recipe.new(user_id: current_user.id, name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
+        @recipe = current_user.recipes.build(name: params[:recipe][:name], course_id: params[:recipe][:course_id], description: params[:recipe][:description], total_time: params[:recipe][:total_time], cook_time: params[:recipe][:cook_time], instructions: params[:recipe][:instructions], image_url: params[:recipe][:image_url])
         if @recipe.save # valid inputs, add ingredients
           add_ingredients(params[:recipe][:ingredients])
           redirect_to("/users/#{@recipe.user.slug}", :success, "Successfully created recipe!")
