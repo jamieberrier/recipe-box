@@ -1,7 +1,7 @@
 # Specifications for the Sinatra Assessment
 
 Specs:
-- [x] Use Sinatra to build the app
+- [x] Use Sinatra to build the app  
       * Corneal gem
 - [x] Use ActiveRecord for storing information in a database
       - gems: activerecord, sinatra-activerecord, rake, sqlite3
